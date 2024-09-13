@@ -1,32 +1,38 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import Botones from "./components/Botones"
+import Consola from "./components/Consola"
+import Entrada from "./components/Entrada"
+import Parser from "./components/Parser"
+import Scanner from "./components/Scanner"
+import Semantico from "./components/Semantico"
+
 
 function App() {
-  const ipcHandle = () => window.electron.ipcRenderer.send('ping')
 
   return (
     <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-      </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
+      <header>
+        <Botones/>
+      </header>
+      
+      <section className="containerApp">
+        <div id="programa">
+          <Entrada/>
         </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
+
+        <div id = "scanner">
+          <Scanner/>
         </div>
-      </div>
-      <Versions></Versions>
+
+        <div id = "parserSemantico">
+          <Parser/>
+          <Semantico/>
+        </div>
+
+        <div id="consola">
+          <Consola/>
+        </div>
+      </section>
+      
     </>
   )
 }
