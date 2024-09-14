@@ -9,7 +9,6 @@ function Consola(){
                 component="form"
                 noValidate
                 autoComplete="off"
-                // sx={{ '& .MuiTextField-root': { m: 1, width: '99%' } }}
             >
             <div>
                 <TextField

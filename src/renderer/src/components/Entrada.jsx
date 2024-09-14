@@ -2,12 +2,11 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import React from 'react'
 
-function Entrada({onChange}){
+function Entrada({onChange, txt}){
     return(
         <>
             <Box
                 component="form"
-                // sx={{ '& .MuiTextField-root': { m: 1, width: '70ch' } }}
                 noValidate
                 autoComplete="off"
             >
@@ -17,6 +16,7 @@ function Entrada({onChange}){
                 label="PROGRAMA"
                 multiline
                 rows={18}
+                value={txt}
                 onChange={(e) => onChange(e)}
                 />
             </div>

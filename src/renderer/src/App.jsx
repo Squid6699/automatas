@@ -16,13 +16,6 @@ function App() {
   const [parser, setParser] = useState("");
   const [semantico, setSemantico] = useState("");
 
-  // console.log(listaTokens);
-  // console.log(parser);
-  // console.log(semantico);
-
-
-
-
   const clickScan = () => {
     const palabras = txt.trim().split(/\s+/);
     setListaTokens(obtenerTokens(palabras));
@@ -38,7 +31,10 @@ function App() {
   }
 
   const clickBorrar = () => {
-
+    setTxt("");
+    setListaTokens([]);
+    setParser("");
+    setSemantico("");
   }
 
   const clickSemantico = () => {
@@ -65,7 +61,7 @@ function App() {
         <section className="containerApp">
 
           <div id="programa">
-            <Entrada onChange = {handleOnChangePalabras}/>
+            <Entrada onChange = {handleOnChangePalabras} txt = {txt}/>
           </div>
 
           <div id = "scanner">
