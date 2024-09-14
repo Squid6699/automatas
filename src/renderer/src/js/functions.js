@@ -11,8 +11,7 @@ export function esNumero(token){
 }
 
 function expresionValido(palabras, pos){
-    const EXPRESION_REGULAR = /\b[a-zA-Z0-9]+\s+([-+*]|\/)\s+[a-zA-Z0-9]+(?:\s+([-+*]|\/)\s+[a-zA-Z0-9]+)*\s+;/;
-    const EXPRESION_REGULAR2 = /\s*[0-9]+\s*\/\s*[0-9]+\s*;/;
+    const EXPRESION_REGULAR = /^(?:[a-zA-Z][a-zA-Z0-9]*|\d+)(?: [\/\+\-\*] (?:[a-zA-Z][a-zA-Z0-9]*|\d+))*( ?;)?$/;
 
     var nuevaConcatenacion = "";
     var newPos = 0;
@@ -28,7 +27,7 @@ function expresionValido(palabras, pos){
     }
 
     var concatenacion = nuevaConcatenacion.trim();
-    if (EXPRESION_REGULAR.test(concatenacion) || EXPRESION_REGULAR2.test(concatenacion)) {
+    if (EXPRESION_REGULAR.test(concatenacion)) {
         return newPos;
     }
 
@@ -37,7 +36,7 @@ function expresionValido(palabras, pos){
 }
 
 function vlbValida(palabras, pos){
-    const EXPRESION_REGULAR = /\(\s+[a-zA-Z]+\d*\s*\)\s+;/;
+    const EXPRESION_REGULAR = /^\(\s+[a-zA-Z]+\d*\s*\)\s+;$/;
 
     var nuevaConcatenacion = "";
     
@@ -168,9 +167,15 @@ export function obtenerSi(palabras, pos){
                 if (pos + newPos < palabras.length && getTokenParser(palabras[pos + newPos]) == 24 ){ // :
                     //VALIDAR PRIMERAS INSTRUCCIONES DENTRO DEL SI
                     for (var i = pos + newPos + 1; i < palabras.length-1; i++) {
+
+                        if (getTokenParser(palabras[i]) != 4 && getTokenParser(palabras[i]) != 5 && getTokenParser(palabras[i]) != 22 && getTokenParser(palabras[i]) != 19 && getTokenParser(palabras[i]) != 23){
+                            break;
+                        }
+
                         if (getTokenParser(palabras[i]) == 25){ //SI ENCUENTRA SINO SE ROMPE EL CICLO
                             break;
                         }
+
                         // $ ID = ARIT Ó $ ID ;
                         if (getTokenParser(palabras[i]) == 4){ // $ EN PRIMER INSTRUCCION DE SI
                             newPosAsig1 = obtenerAsignacion(palabras, i);

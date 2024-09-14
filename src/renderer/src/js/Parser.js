@@ -29,7 +29,7 @@ export function obtenerParser(palabras){
                             }
                         }
 
-                        // // ID = ARIT ;
+                        // ID = ARIT ;
                         if (getTokenParser(palabras[i]) == 5){ // ID
                             var newPos = obtenerReemplazoAsignacion(palabras, i);
                             if (newPos > 0){
