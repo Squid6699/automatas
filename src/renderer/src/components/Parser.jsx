@@ -7,7 +7,7 @@ function Parser(){
         <>
             <Box
                 component="form"
-                sx={{ '& .MuiTextField-root': { m: 1, width: '70ch' } }}
+                // sx={{ '& .MuiTextField-root': { m: 1, width: '70ch' } }}
                 noValidate
                 autoComplete="off"
             >
@@ -16,8 +16,11 @@ function Parser(){
                 id="outlined-multiline-static"
                 label="PARSER"
                 multiline
-                rows={3}
-                disabled
+                rows={1}
+                InputProps={{
+                    readOnly: true, // Establece el campo como solo lectura
+                }}
+
                 />
             </div>
             </Box>

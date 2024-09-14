@@ -7,7 +7,7 @@ function Scanner(){
         <>
             <Box
                 component="form"
-                sx={{ '& .MuiTextField-root': { m: 1, width: '70ch' } }}
+                // sx={{ '& .MuiTextField-root': { m: 1, width: '70ch' } }}
                 noValidate
                 autoComplete="off"
             >
@@ -17,7 +17,9 @@ function Scanner(){
                 label="SCANNER"
                 multiline
                 rows={18}
-                disabled
+                InputProps={{
+                    readOnly: true, // Establece el campo como solo lectura
+                }}
                 />
             </div>
             </Box>

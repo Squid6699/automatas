@@ -7,7 +7,7 @@ function Entrada(){
         <>
             <Box
                 component="form"
-                sx={{ '& .MuiTextField-root': { m: 1, width: '70ch' } }}
+                // sx={{ '& .MuiTextField-root': { m: 1, width: '70ch' } }}
                 noValidate
                 autoComplete="off"
             >

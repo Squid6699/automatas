@@ -7,9 +7,9 @@ function Consola(){
         <>
             <Box
                 component="form"
-                sx={{ '& .MuiTextField-root': { m: 1, width: '150ch' } }}
                 noValidate
                 autoComplete="off"
+                // sx={{ '& .MuiTextField-root': { m: 1, width: '99%' } }}
             >
             <div>
                 <TextField
@@ -17,7 +17,9 @@ function Consola(){
                 label="CONSOLA"
                 multiline
                 rows={5}
-                disabled
+                InputProps={{
+                    readOnly: true,
+                }}
                 />
             </div>
             </Box>

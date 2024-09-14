@@ -14,23 +14,25 @@ function App() {
         <Botones/>
       </header>
       
-      <section className="containerApp">
-        <div id="programa">
-          <Entrada/>
-        </div>
+      <section className="container">
+        <section className="containerApp">
+          <div id="programa">
+            <Entrada/>
+          </div>
 
-        <div id = "scanner">
-          <Scanner/>
-        </div>
+          <div id = "scanner">
+            <Scanner/>
+          </div>
 
-        <div id = "parserSemantico">
-          <Parser/>
-          <Semantico/>
-        </div>
+          <div id = "parserSemantico">
+            <Parser/>
+            <Semantico/>
+          </div>
 
-        <div id="consola">
-          <Consola/>
-        </div>
+          <div id="consola">
+            <Consola/>
+          </div>
+        </section>
       </section>
       
     </>
