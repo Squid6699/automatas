@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import React from 'react'
 
-function Entrada(){
+function Entrada({onChange}){
     return(
         <>
             <Box
@@ -13,10 +13,11 @@ function Entrada(){
             >
             <div>
                 <TextField
-                id="outlined-multiline-static"
+                id="entradaTokens"
                 label="PROGRAMA"
                 multiline
                 rows={18}
+                onChange={(e) => onChange(e)}
                 />
             </div>
             </Box>

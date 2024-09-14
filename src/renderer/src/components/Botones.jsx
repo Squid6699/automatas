@@ -5,14 +5,14 @@ import PermScanWifiRoundedIcon from '@mui/icons-material/PermScanWifiRounded';
 import CheckBoxRoundedIcon from '@mui/icons-material/CheckBoxRounded';
 import ContentPasteSearchRoundedIcon from '@mui/icons-material/ContentPasteSearchRounded';
 
-function Botones(){
+function Botones({clickScan, clickParser}){
     return(
         <>
-            <Button variant="outlined" startIcon={<PermScanWifiRoundedIcon />}>
+            <Button variant="outlined" startIcon={<PermScanWifiRoundedIcon />} onClick={() => clickScan()}>
                 SCAN
             </Button>
 
-            <Button variant="outlined" startIcon={<CheckBoxRoundedIcon />}>
+            <Button variant="outlined" startIcon={<CheckBoxRoundedIcon /> } onClick={() => clickParser()}>
                 PARSER
             </Button>
 

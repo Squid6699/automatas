@@ -2,24 +2,21 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import React from 'react'
 
-function Scanner(){
+function Scanner({listaTokens}){
     return(
         <>
             <Box
                 component="form"
-                // sx={{ '& .MuiTextField-root': { m: 1, width: '70ch' } }}
                 noValidate
                 autoComplete="off"
             >
             <div>
                 <TextField
-                id="outlined-multiline-static"
+                id="salidaTokens"
                 label="SCANNER"
                 multiline
                 rows={18}
-                InputProps={{
-                    readOnly: true, // Establece el campo como solo lectura
-                }}
+                value={listaTokens}
                 />
             </div>
             </Box>
