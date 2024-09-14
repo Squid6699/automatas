@@ -5,7 +5,7 @@ import PermScanWifiRoundedIcon from '@mui/icons-material/PermScanWifiRounded';
 import CheckBoxRoundedIcon from '@mui/icons-material/CheckBoxRounded';
 import ContentPasteSearchRoundedIcon from '@mui/icons-material/ContentPasteSearchRounded';
 
-function Botones({clickScan, clickParser}){
+function Botones({clickScan, clickParser, clickSemantico, clickBorrar}){
     return(
         <>
             <Button variant="outlined" startIcon={<PermScanWifiRoundedIcon />} onClick={() => clickScan()}>
@@ -16,11 +16,11 @@ function Botones({clickScan, clickParser}){
                 PARSER
             </Button>
 
-            <Button variant="outlined" startIcon={<ContentPasteSearchRoundedIcon />}>
+            <Button variant="outlined" startIcon={<ContentPasteSearchRoundedIcon />}  onClick={() => clickSemantico()}>
                 SEMANTICO
             </Button>
 
-            <Button variant="outlined" startIcon={<DeleteIcon />}>
+            <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => clickBorrar()}>
                 BORRAR
             </Button>
         </>

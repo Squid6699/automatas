@@ -2,12 +2,11 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-function Semantico(){
+function Semantico({semantico}){
     return(
         <>
             <Box
                 component="form"
-                // sx={{ '& .MuiTextField-root': { m: 1, width: '70ch' } }}
                 noValidate
                 autoComplete="off"
             >
@@ -17,8 +16,11 @@ function Semantico(){
                 label="SEMANTICO"
                 multiline
                 rows={1}
-                InputProps={{
-                    readOnly: true, // Establece el campo como solo lectura
+                value={semantico}
+                sx={{
+                    "& .MuiInputBase-input": {
+                        color: semantico === "SEMANTICO OK" ? "green" : "red"
+                    }
                 }}
                 />
             </div>

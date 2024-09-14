@@ -7,12 +7,14 @@ import Scanner from "./components/Scanner"
 import Semantico from "./components/Semantico"
 import { obtenerTokens } from "./js/Scanner"
 import { obtenerParser } from "./js/Parser"
+import { obtenerSemantico } from "./js/Semantico"
 
 function App() {
 
   const [txt, setTxt] = useState("");
   const [listaTokens, setListaTokens] = useState([]);
   const [parser, setParser] = useState(null);
+  const [semantico, setSemantico] = useState(null);
 
   const clickScan = () => {
     const palabras = txt.trim().split(/\s+/);
@@ -26,7 +28,19 @@ function App() {
     }else{
       setParser("SINTAX ERROR");
     }
-    // setParser(obtenerParser(palabras));
+  }
+
+  const clickBorrar = () => {
+
+  }
+
+  const clickSemantico = () => {
+    const palabras = txt.trim().split(/\s+/);
+    if (obtenerSemantico(palabras)){
+      setSemantico("SEMANTICO OK");
+    }else{
+      setSemantico("ERROR SEMANTICO");
+    }
   }
 
   const handleOnChangePalabras = (e) => {
@@ -37,7 +51,7 @@ function App() {
   return (
     <>
       <header>
-        <Botones clickScan = {clickScan} clickParser = {clickParser}/>
+        <Botones clickScan = {clickScan} clickParser = {clickParser} clickSemantico = {clickSemantico} clickBorrar = {clickBorrar}/>
       </header>
       
       <section className="container">
@@ -53,7 +67,7 @@ function App() {
 
           <div id = "parserSemantico">
             <Parser parser = {parser}/>
-            <Semantico/>
+            <Semantico semantico={semantico}/>
           </div>
 
           <div id="consola">
