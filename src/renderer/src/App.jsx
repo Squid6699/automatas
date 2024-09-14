@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Botones from "./components/Botones"
 import Consola from "./components/Consola"
 import Entrada from "./components/Entrada"
@@ -13,8 +13,15 @@ function App() {
 
   const [txt, setTxt] = useState("");
   const [listaTokens, setListaTokens] = useState([]);
-  const [parser, setParser] = useState(null);
-  const [semantico, setSemantico] = useState(null);
+  const [parser, setParser] = useState("");
+  const [semantico, setSemantico] = useState("");
+
+  // console.log(listaTokens);
+  // console.log(parser);
+  // console.log(semantico);
+
+
+
 
   const clickScan = () => {
     const palabras = txt.trim().split(/\s+/);
