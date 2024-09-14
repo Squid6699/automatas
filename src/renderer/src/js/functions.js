@@ -12,7 +12,7 @@ export function esNumero(token){
 
 function expresionValido(palabras, pos){
     const EXPRESION_REGULAR = /\b[a-zA-Z0-9]+\s+([-+*]|\/)\s+[a-zA-Z0-9]+(?:\s+([-+*]|\/)\s+[a-zA-Z0-9]+)*\s+;/;
-    const EXPRESION_REGULAR2 = /\s*[0-9]+\d*\s*;/;
+    const EXPRESION_REGULAR2 = /\s*[0-9]+\s*\/\s*[0-9]+\s*;/;
 
     var nuevaConcatenacion = "";
     var newPos = 0;
