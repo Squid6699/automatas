@@ -1,10 +1,21 @@
 import { getTokenParser } from "./tablaParser";
 
-export const errores = [];
+var errores = [];
 
-export function vaciarErrores(){
+export function obtenerErrores(){
+    var erroresCadena = "";
+
+    errores.forEach(error => {
+        erroresCadena = erroresCadena + error + "\n";
+    });
+
+    return erroresCadena;
+}
+
+export function borrarErrores(){
     errores = [];
 }
+
 
 export function esId(token){
     var regex = /^[a-zA-Z][a-zA-Z0-9]*$/;
@@ -72,11 +83,11 @@ export function obtenerOut(palabras, pos){
             return newPos;
         }else{
             // console.log("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
-            errores.push("ERROR EN ID CERCA DE: "+ palabras[pos + 1] + "\n");
+            errores.push("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
         }
     }else{
-        console.log("SIN ( DESPUES DEL OUT");
-        errores.push("SIN ( DESPUES DEL OUT" + "\n");
+        // console.log("SIN ( DESPUES DEL OUT");
+        errores.push("SIN ( DESPUES DEL OUT");
     }
     return 0;
 }
@@ -97,15 +108,18 @@ export function obtenerAsignacion(palabras, pos){
                 if (newPos > 0){
                     return newPos + 2;
                 }else{
-                    console.log("ERROR EN ARIT CERCA DE: " + palabras[pos + 3]);
+                    // console.log("ERROR EN ARIT CERCA DE: " + palabras[pos + 3]);
+                    errores.push("ERROR EN ARIT CERCA DE: " + palabras[pos + 3])
                 }
                 
             }
         }else{
-            console.log("ERROR CERCA DE: " + palabras[pos + 2]);
+            // console.log("ERROR CERCA DE: " + palabras[pos + 2]);
+            errores.push("ERROR CERCA DE: " + palabras[pos + 2]);
         }
     }else{
-        console.log("ERROR EN ID DE: " + palabras[pos + 1]);
+        // console.log("ERROR EN ID DE: " + palabras[pos + 1]);
+        errores.push("ERROR EN ID DE: " + palabras[pos + 1]);
     }
     return 0;
 }
@@ -117,11 +131,13 @@ export function obtenerReemplazoAsignacion(palabras, pos){
             if (newPos > 0){
                 return newPos + 1;
             }else{
-                console.log("ERROR EN ARIT CERCA DE: " + palabras[pos + 2]);
+                // console.log("ERROR EN ARIT CERCA DE: " + palabras[pos + 2]);
+                errores.push("ERROR EN ARIT CERCA DE: " + palabras[pos + 2]);
             }
         }
     }else{
-        console.log("ERROR FALTA = CERCA DE: " + palabras[pos + 1]);
+        // console.log("ERROR FALTA = CERCA DE: " + palabras[pos + 1]);
+        errores.push("ERROR FALTA = CERCA DE: " + palabras[pos + 1]);
     }
 
     return 0;
@@ -133,10 +149,12 @@ export function obtenerLeer(palabras, pos){
         if (newPos > 0){
             return newPos;
         }else{
-            console.log("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
+            // console.log("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
+            errores.push("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
         }
     }else{
-        console.log("SIN ( DESPUES DEL LEER");
+        // console.log("SIN ( DESPUES DEL LEER");
+        errores.push("SIN ( DESPUES DEL LEER");
     }
     return 0;
 }
@@ -191,7 +209,8 @@ export function obtenerSi(palabras, pos){
                                 i += newPosAsig1;
                                 newPosAsig1 = i;
                             }else{
-                                console.log("ERROR DENTRO DE SI");
+                                // console.log("ERROR DENTRO DE SI");
+                                errores.push("ERROR DENTRO DE SI");
                                 break;
                             }
                         }
@@ -202,7 +221,8 @@ export function obtenerSi(palabras, pos){
                                 i += newPosAsig1;
                                 newPosAsig1 = i;
                             }else{
-                                console.log("ERROR DENTRO DE SI");
+                                // console.log("ERROR DENTRO DE SI");
+                                errores.push("ERROR DENTRO DE SI");
                                 break;
                             }
                         } 
@@ -213,7 +233,8 @@ export function obtenerSi(palabras, pos){
                                 i += newPosAsig1;
                                 newPosAsig1 = i;
                             }else{
-                                console.log("ERROR DENTRO DE SI");
+                                // console.log("ERROR DENTRO DE SI");
+                                errores.push("ERROR DENTRO DE SI");
                                 break;
                             }
                         }
@@ -224,7 +245,8 @@ export function obtenerSi(palabras, pos){
                                 i += newPosAsig1;
                                 newPosAsig1 = i;
                             }else{
-                                console.log("ERROR DENTRO DE SI");
+                                // console.log("ERROR DENTRO DE SI");
+                                errores.push("ERROR DENTRO DE SI");
                                 break;
                             }
                         }
@@ -241,7 +263,8 @@ export function obtenerSi(palabras, pos){
                                     i += newPosAsig2;
                                     newPosAsig2 = i;
                                 }else{
-                                    console.log("ERROR DENTRO DE SI");
+                                    // console.log("ERROR DENTRO DE SI");
+                                    errores.push("ERROR DENTRO DE SI");
                                     break;
                                 }
                             }
@@ -253,7 +276,8 @@ export function obtenerSi(palabras, pos){
                                     i += newPosAsig2;
                                     newPosAsig2 = i;
                                 }else{
-                                    console.log("ERROR DENTRO DE SI");
+                                    // console.log("ERROR DENTRO DE SI");
+                                    errores.push("ERROR DENTRO DE SI");
                                     break;
                                 }
                             } 
@@ -264,7 +288,8 @@ export function obtenerSi(palabras, pos){
                                     i += newPosAsig2;
                                     newPosAsig2 = i;
                                 }else{
-                                    console.log("ERROR DENTRO DE SI");
+                                    // console.log("ERROR DENTRO DE SI");
+                                    errores.push("ERROR DENTRO DE SI");
                                     break;
                                 }
                             }
@@ -275,7 +300,8 @@ export function obtenerSi(palabras, pos){
                                     i += newPosAsig2;
                                     newPosAsig2 = i;
                                 }else{
-                                    console.log("ERROR DENTRO DE SI");
+                                    // console.log("ERROR DENTRO DE SI");
+                                    errores.push("ERROR DENTRO DE SI");
                                     break;
                                 }
                             }
@@ -283,14 +309,20 @@ export function obtenerSi(palabras, pos){
                         
                         if (newPosAsig2 + 1 < palabras.length && getTokenParser(palabras[newPosAsig2 + 1]) == 26){ // FINSI
                             return newPosAsig2 + 1;
+                        }else{
+                            errores.push("FALTA FINSI DENTRO DE SI");
                         }
                         
+                    }else{
+                        errores.push("FALTA SINO DENTRO DE SI");
                     }
                 }else{
-                    console.log("FALTA : DESPUES DE LA CONDICION");
+                    // console.log("FALTA : DESPUES DE LA CONDICION");
+                    errores.push("FALTA : DESPUES DE LA CONDICION");
                 }
             }else{
-                console.log("ERROR EN LA CONDICION");
+                // console.log("ERROR EN LA CONDICION");
+                errores.push("ERROES EN LA CONDICION")
             }
         }
     }

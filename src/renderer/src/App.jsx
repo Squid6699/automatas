@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Botones from "./components/Botones"
 import Consola from "./components/Consola"
 import Entrada from "./components/Entrada"
@@ -8,15 +8,14 @@ import Semantico from "./components/Semantico"
 import { obtenerTokens } from "./js/Scanner"
 import { obtenerParser } from "./js/Parser"
 import { obtenerSemantico } from "./js/Semantico"
-import { errores, vaciarErrores } from "./js/functions"
+import { borrarErrores, obtenerErrores } from "./js/functions"
 
 function App() {
-
   const [txt, setTxt] = useState("");
   const [listaTokens, setListaTokens] = useState([]);
   const [parser, setParser] = useState("");
   const [semantico, setSemantico] = useState("");
-  const [consola, setConsola] = useState(errores);
+  const [consola, setConsola] = useState("");
 
   const clickScan = () => {
     const palabras = txt.trim().split(/\s+/);
@@ -30,14 +29,7 @@ function App() {
     }else{
       setParser("SINTAX ERROR");
     }
-  }
-
-  const clickBorrar = () => {
-    setTxt("");
-    setListaTokens([]);
-    setParser("");
-    setSemantico("");
-    vaciarErrores();
+    setConsola(obtenerErrores());
   }
 
   const clickSemantico = () => {
@@ -51,6 +43,15 @@ function App() {
 
   const handleOnChangePalabras = (e) => {
     setTxt(e.target.value);
+  }
+
+  const clickBorrar = () => {
+    setTxt("");
+    setListaTokens([]);
+    setParser("");
+    setSemantico("");
+    setConsola("");
+    borrarErrores();
   }
 
 
