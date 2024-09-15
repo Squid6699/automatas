@@ -3,6 +3,16 @@ import TextField from '@mui/material/TextField';
 import React from 'react'
 
 function Parser({parser}){
+
+    var errorParser = "";
+
+    if (parser === true){
+        errorParser = "PROGRAMA OK";
+    }else if (parser === false){
+        errorParser = "SINTAX ERROR";
+    }
+
+    
     return(
         <>
             <Box
@@ -16,10 +26,10 @@ function Parser({parser}){
                 label="PARSER"
                 multiline
                 rows={1}
-                value={parser}
+                value={errorParser}
                 sx={{
                     "& .MuiInputBase-input": {
-                        color: parser === "PROGRAMA OK" ? "green" : "red"
+                        color: parser ? "green" : "red"
                     }
                 }}
                 />

@@ -25,19 +25,19 @@ function App() {
   const clickParser = () => {
     const palabras = txt.trim().split(/\s+/);
     if (obtenerParser(palabras)){
-      setParser("PROGRAMA OK");
+      setParser(true);
     }else{
-      setParser("SINTAX ERROR");
+      setParser(false);
     }
     setConsola(obtenerErrores());
   }
 
   const clickSemantico = () => {
     const palabras = txt.trim().split(/\s+/);
-    if (obtenerSemantico(palabras)){
-      setSemantico("SEMANTICO OK");
+    if (obtenerSemantico(palabras, parser)){
+      setSemantico(true);
     }else{
-      setSemantico("ERROR SEMANTICO");
+      setSemantico(false);
     }
     setConsola(obtenerErrores());
   }

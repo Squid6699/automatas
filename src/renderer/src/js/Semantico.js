@@ -2,9 +2,14 @@ import { consolaError } from "./functions";
 import { addVariable, vaciarSet, variableExistente } from "./Set";
 import { getTokenParser } from "./tablaParser";
 
-export function obtenerSemantico(palabras){
-    vaciarSet();
+export function obtenerSemantico(palabras, parser){
     var semantico = false;
+
+    if (!parser){
+        return;
+    }
+
+    vaciarSet();
 
     for (var i = 2; i < palabras.length-1;i++) {
 
@@ -37,7 +42,6 @@ export function obtenerSemantico(palabras){
             }
         }
 
-        // VALIDAR QUE NO SE USAN PR COMO ID
     }
     
     return semantico;

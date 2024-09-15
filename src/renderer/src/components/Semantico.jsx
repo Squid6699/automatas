@@ -3,6 +3,15 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
 function Semantico({semantico}){
+
+    var errorSemantico = "";
+    
+    if (semantico === true){
+        errorSemantico = "SEMANTICO OK";
+    }else if (semantico === false){
+        errorSemantico = "ERROR SEMANTICO";
+    }
+
     return(
         <>
             <Box
@@ -16,10 +25,10 @@ function Semantico({semantico}){
                 label="SEMANTICO"
                 multiline
                 rows={1}
-                value={semantico}
+                value={errorSemantico}
                 sx={{
                     "& .MuiInputBase-input": {
-                        color: semantico === "SEMANTICO OK" ? "green" : "red"
+                        color: semantico ? "green" : "red"
                     }
                 }}
                 />
