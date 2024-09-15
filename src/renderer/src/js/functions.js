@@ -119,7 +119,7 @@ export function obtenerAsignacion(palabras, pos){
         }
     }else{
         // console.log("ERROR EN ID DE: " + palabras[pos + 1]);
-        errores.push("ERROR EN ID DE: " + palabras[pos + 1]);
+        errores.push(palabras[pos + 1].toUpperCase() + " - NO PUEDE SER UTILIZADA COMO ID");
     }
     return 0;
 }
@@ -327,4 +327,8 @@ export function obtenerSi(palabras, pos){
         }
     }
     return 0;
+}
+
+export function consolaError(msg){
+    errores.push(msg);
 }

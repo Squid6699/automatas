@@ -1,4 +1,4 @@
-import { obtenerAsignacion, obtenerLeer, obtenerOut, obtenerReemplazoAsignacion, obtenerSi } from "./functions";
+import { consolaError, obtenerAsignacion, obtenerLeer, obtenerOut, obtenerReemplazoAsignacion, obtenerSi } from "./functions";
 import { getTokenParser } from "./tablaParser";
 
 export function obtenerParser(palabras){
@@ -79,20 +79,24 @@ export function obtenerParser(palabras){
 
                     }
                 }else{
-                    alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
+                    consolaError("NO SE HA PODIDO INICIAR EL PROGRAMA");
+                    // alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
                     return;
                 }
             }else{
-                alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
+                consolaError("NO SE HA PODIDO INICIAR EL PROGRAMA");
+                // alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
                 return;
             }
 
         }else{
-            alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
+            consolaError("NO SE HA PODIDO INICIAR EL PROGRAMA");
+            // alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
             return;
         }
     }else{
-        alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
+        consolaError("NO SE HA PODIDO INICIAR EL PROGRAMA");
+        // alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
         return;
     }
 

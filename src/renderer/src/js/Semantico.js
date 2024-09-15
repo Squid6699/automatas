@@ -1,3 +1,4 @@
+import { consolaError } from "./functions";
 import { addVariable, vaciarSet, variableExistente } from "./Set";
 import { getTokenParser } from "./tablaParser";
 
@@ -11,7 +12,8 @@ export function obtenerSemantico(palabras){
         if (getTokenParser(palabras[i]) == 4){ // $
             var variable = palabras[i + 1]; // Sacar el siguiente token despues del $
             if (variableExistente(variable)){
-                console.log(variable + " ya se encuentra definida");
+                consolaError(variable.toUpperCase() + " YA SE ENCUENTRA DEFINIDA");
+                // console.log(variable + " ya se encuentra definida");
                 semantico = false;
                 break;
             }else{
@@ -25,7 +27,8 @@ export function obtenerSemantico(palabras){
             if (i > 0 && getTokenParser(palabras[i - 1]) != 4) { // $
                 var variable = palabras[i]; // Se guarda el token que no tiene $ antes.
                 if (!variableExistente(variable)) {
-                    console.log(variable+" no esta definida");
+                    consolaError(variable.toUpperCase() + " NO ESTA DEFINIDA");
+                    // console.log(variable+" no esta definida");
                     semantico = false;
                     break;
                 }else{

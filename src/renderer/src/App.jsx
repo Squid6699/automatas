@@ -39,6 +39,7 @@ function App() {
     }else{
       setSemantico("ERROR SEMANTICO");
     }
+    setConsola(obtenerErrores());
   }
 
   const handleOnChangePalabras = (e) => {
