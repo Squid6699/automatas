@@ -8,6 +8,7 @@ import Semantico from "./components/Semantico"
 import { obtenerTokens } from "./js/Scanner"
 import { obtenerParser } from "./js/Parser"
 import { obtenerSemantico } from "./js/Semantico"
+import { errores, vaciarErrores } from "./js/functions"
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
   const [listaTokens, setListaTokens] = useState([]);
   const [parser, setParser] = useState("");
   const [semantico, setSemantico] = useState("");
+  const [consola, setConsola] = useState(errores);
 
   const clickScan = () => {
     const palabras = txt.trim().split(/\s+/);
@@ -35,6 +37,7 @@ function App() {
     setListaTokens([]);
     setParser("");
     setSemantico("");
+    vaciarErrores();
   }
 
   const clickSemantico = () => {
@@ -74,7 +77,7 @@ function App() {
           </div>
 
           <div id="consola">
-            <Consola/>
+            <Consola consola = {consola}/>
           </div>
         </section>
       </section>

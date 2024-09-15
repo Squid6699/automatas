@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-function Consola(){
+function Consola({consola}){
     return(
         <>
             <Box
@@ -15,10 +15,7 @@ function Consola(){
                 id="outlined-multiline-static"
                 label="CONSOLA"
                 multiline
-                //rows={5}
-                InputProps={{
-                    readOnly: true,
-                }}
+                value={consola}
                 />
             </div>
             </Box>

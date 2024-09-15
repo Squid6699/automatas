@@ -85,19 +85,19 @@ function Botones({clickScan, clickParser, clickSemantico, clickBorrar, txt, setT
 
             </Menu>
 
-            <Button variant="outlined" startIcon={<PermScanWifiRoundedIcon />} onClick={() => clickScan()}>
+            <Button id='botonScan' variant="outlined" startIcon={<PermScanWifiRoundedIcon />} onClick={() => clickScan()}>
                 SCAN
             </Button>
 
-            <Button variant="outlined" startIcon={<CheckBoxRoundedIcon /> } onClick={() => clickParser()}>
+            <Button id='botonParser' variant="outlined" startIcon={<CheckBoxRoundedIcon /> } onClick={() => clickParser()}>
                 PARSER
             </Button>
 
-            <Button variant="outlined" startIcon={<ContentPasteSearchRoundedIcon />}  onClick={() => clickSemantico()}>
+            <Button id='botonSemantico' variant="outlined" startIcon={<ContentPasteSearchRoundedIcon />}  onClick={() => clickSemantico()}>
                 SEMANTICO
             </Button>
 
-            <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => clickBorrar()}>
+            <Button id='botonBorrar' variant="outlined" startIcon={<DeleteIcon />} onClick={() => clickBorrar()}>
                 BORRAR
             </Button>
 

@@ -35,26 +35,6 @@ header #fade-button{
   ;
 }
 
-.css-1q964xs-MuiFormLabel-root-MuiInputLabel-root{
-  color: black !important;
-  font-weight: bold !important;
-}
-
-.css-18pjc51-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
-  color: black !important;
-  font-weight: bold !important;
-}
-
-.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
-  border-color: rgba(0, 0, 0, 0.486);
-  border-width: 2px;
-}
-
-.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: black !important;
-  border-width: 2px !important;
-}
-
 #programa textarea, #scanner textarea{
   font-size: 30px !important;
   line-height: 1 !important;
@@ -71,12 +51,13 @@ header #fade-button{
 }
 
 #consola textarea{
-  font-size: 30px !important;
+  font-size: 15px !important;
   line-height: 1 !important;
   font-family: "Inconsolata", monospace !important;
   font-style: normal !important;
   width: 1040px;
   height: 75px !important;
+  overflow-y: auto !important;
 }
 
 #programa{
@@ -117,4 +98,48 @@ header #fade-button{
   #consola textarea{
     width: 785px;
   }
+}
+
+.css-1q964xs-MuiFormLabel-root-MuiInputLabel-root{
+  color: black !important;
+  font-weight: bold !important;
+}
+
+.css-18pjc51-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
+  color: black !important;
+  font-weight: bold !important;
+}
+
+.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(0, 0, 0, 0.486);
+  border-width: 2px;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: black !important;
+  border-width: 2px !important;
+}
+
+header #botonScan{
+  color: black !important;
+  font-weight: bold !important;
+  border-color: black !important;
+}
+
+header #botonParser{
+  color: rgb(28, 131, 28) !important;
+  font-weight: bold !important;
+  border-color: rgb(28, 131, 28) !important;
+}
+
+header #botonSemantico{
+  color: blue !important;
+  font-weight: bold !important;
+  border-color: blue !important;
+}
+
+header #botonBorrar{
+  color: red !important;
+  font-weight: bold !important;
+  border-color: red !important;
 }

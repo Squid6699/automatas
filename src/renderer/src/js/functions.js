@@ -1,5 +1,11 @@
 import { getTokenParser } from "./tablaParser";
 
+export const errores = [];
+
+export function vaciarErrores(){
+    errores = [];
+}
+
 export function esId(token){
     var regex = /^[a-zA-Z][a-zA-Z0-9]*$/;
     return regex.test(token);
@@ -65,10 +71,12 @@ export function obtenerOut(palabras, pos){
         if (newPos > 0){
             return newPos;
         }else{
-            console.log("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
+            // console.log("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
+            errores.push("ERROR EN ID CERCA DE: "+ palabras[pos + 1] + "\n");
         }
     }else{
         console.log("SIN ( DESPUES DEL OUT");
+        errores.push("SIN ( DESPUES DEL OUT" + "\n");
     }
     return 0;
 }
