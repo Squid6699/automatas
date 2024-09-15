@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Botones from "./components/Botones"
 import Consola from "./components/Consola"
 import Entrada from "./components/Entrada"
@@ -54,7 +54,7 @@ function App() {
   return (
     <>
       <header>
-        <Botones clickScan = {clickScan} clickParser = {clickParser} clickSemantico = {clickSemantico} clickBorrar = {clickBorrar}/>
+        <Botones clickScan = {clickScan} clickParser = {clickParser} clickSemantico = {clickSemantico} clickBorrar = {clickBorrar} txt = {txt} setTxt = {setTxt} />
       </header>
       
       <section className="container">
