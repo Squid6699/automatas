@@ -15,7 +15,7 @@ function Scanner({listaTokens}){
                 id="salidaTokens"
                 label="SCANNER"
                 multiline
-                rows={18}
+                //rows={18}
                 value={listaTokens}
                 />
             </div>

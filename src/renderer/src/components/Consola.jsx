@@ -15,7 +15,7 @@ function Consola(){
                 id="outlined-multiline-static"
                 label="CONSOLA"
                 multiline
-                rows={5}
+                //rows={5}
                 InputProps={{
                     readOnly: true,
                 }}

@@ -15,7 +15,7 @@ function Entrada({onChange, txt}){
                 id="entradaTokens"
                 label="PROGRAMA"
                 multiline
-                rows={18}
+                //rows={18}
                 value={txt}
                 onChange={(e) => onChange(e)}
                 />

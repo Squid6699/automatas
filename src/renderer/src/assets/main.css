@@ -1,12 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
-
 header{
   display: flex;
   justify-content: center;
   gap: 20px;
   margin-bottom: 10px;
-  min-width: 1354px;
+  min-width: 1220px
 
 }
 
@@ -20,15 +19,15 @@ header #fade-button{
 .container{
   display: flex;
   justify-content: center;
-  min-width: 1354px;
+  min-width: 1220px;
 
 }
 
 .containerApp{
   display: grid;
   gap: 10px;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 200px;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
   grid-template-areas: 
   "programa scanner parserSemantico"
   "programa scanner ."
@@ -60,6 +59,8 @@ header #fade-button{
   font-size: 30px !important;
   line-height: 1 !important;
   width: 500px;
+  height: 550px !important;
+  overflow: auto !important;
 }
 
 #parserSemantico textarea{
@@ -75,6 +76,7 @@ header #fade-button{
   font-family: "Inconsolata", monospace !important;
   font-style: normal !important;
   width: 1040px;
+  height: 75px !important;
 }
 
 #programa{
@@ -95,4 +97,24 @@ header #fade-button{
   gap: 10px;
   align-items: center;
   grid-area: parserSemantico;
+}
+
+@media (height < 767px){
+  #programa textarea, #scanner textarea{
+    height: 450px !important;
+  }
+}
+
+@media (width < 1482px){
+  #programa textarea, #scanner textarea{
+    width: 375px !important;
+  }
+
+  .containerApp{
+    grid-template-columns: 400px 400px auto;
+  }
+
+  #consola textarea{
+    width: 785px;
+  }
 }
