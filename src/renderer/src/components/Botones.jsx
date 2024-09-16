@@ -67,6 +67,8 @@ function Botones({clickScan, clickParser, clickSemantico, clickBorrar, txt, setT
             console.error('Error al guardar el archivo:', error);
         }
     };
+
+    const handleQuit = () => window.electron.ipcRenderer.send('quit')
     
 
     return(
@@ -81,7 +83,7 @@ function Botones({clickScan, clickParser, clickSemantico, clickBorrar, txt, setT
                 <MenuItem onClick={handleClickAbrir}>ABRIR...</MenuItem>
                 <MenuItem onClick={handleClose}>GUARDAR</MenuItem>
                 <MenuItem onClick={handleSaveAs}>GUARDAR COMO...</MenuItem>
-                <MenuItem onClick={handleClose}>CERRAR</MenuItem>
+                <MenuItem onClick={handleQuit}>CERRAR</MenuItem>
 
             </Menu>
 
