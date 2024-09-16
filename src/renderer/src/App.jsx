@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Botones from "./components/Botones"
 import Consola from "./components/Consola"
 import Entrada from "./components/Entrada"

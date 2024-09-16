@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
+body {
+  background-image: url('./wavy-lines.svg');
+  background-size: cover;
+}
+
 header{
   display: flex;
   justify-content: center;
@@ -62,14 +67,17 @@ header #fade-button{
 
 #programa{
   grid-area: programa;
+  background-color: white;
 }
 
 #scanner{
   grid-area: scanner;
+  background-color: white;
 }
 
 #consola{
   grid-area: consola;
+  background-color: white;
 }
 
 #parserSemantico{
