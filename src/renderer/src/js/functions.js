@@ -82,12 +82,10 @@ export function obtenerOut(palabras, pos){
         if (newPos > 0){
             return newPos;
         }else{
-            // console.log("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
-            errores.push("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
+            errores.push("ERROR OUT: EN ID CERCA DE: "+ palabras[pos + 1]);
         }
     }else{
-        // console.log("SIN ( DESPUES DEL OUT");
-        errores.push("SIN ( DESPUES DEL OUT");
+        errores.push("ERROR OUT: SIN ( DESPUES DEL OUT");
     }
     return 0;
 }
@@ -108,17 +106,14 @@ export function obtenerAsignacion(palabras, pos){
                 if (newPos > 0){
                     return newPos + 2;
                 }else{
-                    // console.log("ERROR EN ARIT CERCA DE: " + palabras[pos + 3]);
-                    errores.push("ERROR EN ARIT CERCA DE: " + palabras[pos + 3])
+                    errores.push("ERROR ASIGNACION: ERROR EN EXPRESION CERCA DE " + palabras[pos + 3])
                 }
                 
             }
         }else{
-            // console.log("ERROR CERCA DE: " + palabras[pos + 2]);
-            errores.push("ERROR CERCA DE: " + palabras[pos + 2]);
+            errores.push("ERROR ASIGNACION: FALTA = CERCA DE " + palabras[pos + 2]);
         }
     }else{
-        // console.log("ERROR EN ID DE: " + palabras[pos + 1]);
         errores.push(palabras[pos + 1].toUpperCase() + " - NO PUEDE SER UTILIZADA COMO ID");
     }
     return 0;
@@ -131,12 +126,10 @@ export function obtenerReemplazoAsignacion(palabras, pos){
             if (newPos > 0){
                 return newPos + 1;
             }else{
-                // console.log("ERROR EN ARIT CERCA DE: " + palabras[pos + 2]);
-                errores.push("ERROR EN ARIT CERCA DE: " + palabras[pos + 2]);
+                errores.push("ERROR EN EXPRESION CERCA DE: " + palabras[pos + 2]);
             }
         }
     }else{
-        // console.log("ERROR FALTA = CERCA DE: " + palabras[pos + 1]);
         errores.push("ERROR FALTA = CERCA DE: " + palabras[pos + 1]);
     }
 
@@ -149,12 +142,10 @@ export function obtenerLeer(palabras, pos){
         if (newPos > 0){
             return newPos;
         }else{
-            // console.log("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
-            errores.push("ERROR EN ID CERCA DE: "+ palabras[pos + 1]);
+            errores.push("ERROR LEER: EN ID CERCA DE: "+ palabras[pos + 1]);
         }
     }else{
-        // console.log("SIN ( DESPUES DEL LEER");
-        errores.push("SIN ( DESPUES DEL LEER");
+        errores.push("ERROR LEER: SIN ( DESPUES DEL LEER");
     }
     return 0;
 }
@@ -209,11 +200,10 @@ export function obtenerSi(palabras, pos){
                                 i += newPosAsig1;
                                 newPosAsig1 = i;
                             }else{
-                                // console.log("ERROR DENTRO DE SI");
-                                errores.push("ERROR DENTRO DE SI");
                                 break;
                             }
                         }
+
                         // ID = ARIT ;
                         if (getTokenParser(palabras[i]) == 5){ // ID
                             newPosAsig1 = obtenerReemplazoAsignacion(palabras, i);
@@ -221,11 +211,10 @@ export function obtenerSi(palabras, pos){
                                 i += newPosAsig1;
                                 newPosAsig1 = i;
                             }else{
-                                // console.log("ERROR DENTRO DE SI");
-                                errores.push("ERROR DENTRO DE SI");
                                 break;
                             }
                         } 
+
                         //LEER ( id ) ;
                         if (getTokenParser(palabras[i]) == 22 ){ //LEER
                             newPosAsig1 = obtenerLeer(palabras, i);
@@ -233,11 +222,10 @@ export function obtenerSi(palabras, pos){
                                 i += newPosAsig1;
                                 newPosAsig1 = i;
                             }else{
-                                // console.log("ERROR DENTRO DE SI");
-                                errores.push("ERROR DENTRO DE SI");
                                 break;
                             }
                         }
+
                         //OUT ( id );
                         if (getTokenParser(palabras[i]) == 19 ){ //OUT
                             newPosAsig1 = obtenerOut(palabras, i);
@@ -245,17 +233,17 @@ export function obtenerSi(palabras, pos){
                                 i += newPosAsig1;
                                 newPosAsig1 = i;
                             }else{
-                                // console.log("ERROR DENTRO DE SI");
-                                errores.push("ERROR DENTRO DE SI");
                                 break;
                             }
                         }
                     }
                     if (newPosAsig1 + 1 < palabras.length && getTokenParser(palabras[newPosAsig1 + 1]) == 25 ){ // SINO
                         for (var i = newPosAsig1 + 1; i < palabras.length-1; i++) {
+
                             if (getTokenParser(palabras[i]) == 26){ //SI ENCUENTRA SINO SE ROMPE EL CICLO
                                 break;
                             }
+
                             // $ ID = ARIT Ó $ ID ;
                             if (getTokenParser(palabras[i]) == 4){ // $ EN SEGUNDA INSTRUCCION DE SI
                                 newPosAsig2 = obtenerAsignacion(palabras, i);
@@ -263,11 +251,10 @@ export function obtenerSi(palabras, pos){
                                     i += newPosAsig2;
                                     newPosAsig2 = i;
                                 }else{
-                                    // console.log("ERROR DENTRO DE SI");
-                                    errores.push("ERROR DENTRO DE SI");
                                     break;
                                 }
                             }
+
                             // ID = ARIT ;
                             if (getTokenParser(palabras[i]) == 5){ // ID
                                 
@@ -276,11 +263,10 @@ export function obtenerSi(palabras, pos){
                                     i += newPosAsig2;
                                     newPosAsig2 = i;
                                 }else{
-                                    // console.log("ERROR DENTRO DE SI");
-                                    errores.push("ERROR DENTRO DE SI");
                                     break;
                                 }
                             } 
+
                             //LEER ( id ) ;
                             if (getTokenParser(palabras[i]) == 22 ){ //LEER
                                 newPosAsig2 = obtenerLeer(palabras, i);
@@ -288,11 +274,10 @@ export function obtenerSi(palabras, pos){
                                     i += newPosAsig2;
                                     newPosAsig2 = i;
                                 }else{
-                                    // console.log("ERROR DENTRO DE SI");
-                                    errores.push("ERROR DENTRO DE SI");
                                     break;
                                 }
                             }
+
                             //OUT ( id );
                             if (getTokenParser(palabras[i]) == 19 ){ //OUT
                                 newPosAsig2 = obtenerOut(palabras, i);
@@ -300,8 +285,6 @@ export function obtenerSi(palabras, pos){
                                     i += newPosAsig2;
                                     newPosAsig2 = i;
                                 }else{
-                                    // console.log("ERROR DENTRO DE SI");
-                                    errores.push("ERROR DENTRO DE SI");
                                     break;
                                 }
                             }
@@ -317,11 +300,9 @@ export function obtenerSi(palabras, pos){
                         errores.push("FALTA SINO DENTRO DE SI");
                     }
                 }else{
-                    // console.log("FALTA : DESPUES DE LA CONDICION");
                     errores.push("FALTA : DESPUES DE LA CONDICION");
                 }
             }else{
-                // console.log("ERROR EN LA CONDICION");
                 errores.push("ERROES EN LA CONDICION")
             }
         }

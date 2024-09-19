@@ -47,7 +47,7 @@ function App() {
   }
 
   const clickBorrar = () => {
-    setTxt("");
+    // setTxt("");
     setListaTokens([]);
     setParser("");
     setSemantico("");
