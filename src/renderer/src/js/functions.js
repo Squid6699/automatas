@@ -313,3 +313,20 @@ export function obtenerSi(palabras, pos){
 export function consolaError(msg){
     errores.push(msg);
 }
+
+export function getContenidoVariable(palabras, pos){
+    var contenido = "";
+
+    if (getTokenParser(palabras[pos]) == 17){ // =
+        for (let i = pos + 1; i < palabras.length; i++) {
+            if (getTokenParser(palabras[i]) == 7 ){ // ;
+                break;
+            }else{
+                contenido = contenido + " " + palabras[i];
+            }
+        }
+    }else{
+        contenido = "";
+    }
+    return contenido;
+}
