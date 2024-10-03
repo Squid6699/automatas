@@ -3,5 +3,6 @@ B {
   $ y ;
   x = 12 ;
   y = 10 ;
-  $ suma = x + y ;
+  $ suma ;
+  suma = x + y ;
 }
