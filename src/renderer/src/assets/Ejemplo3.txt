@@ -1,8 +1,8 @@
 B {
   $ x ;
   $ y ;
+  $ suma ;
   x = 12 ;
   y = 10 ;
-  $ suma ;
   suma = x + y ;
 }
