@@ -10,6 +10,7 @@ import { obtenerParser } from "./js/Parser"
 import { obtenerSemantico } from "./js/Semantico"
 import { borrarErrores, obtenerErrores } from "./js/functions"
 import Intermedio from "./components/Intermedio"
+import { obtenerCodigoIntermedio } from "./js/CodigoIntermedio"
 
 function App() {
   const [txt, setTxt] = useState("");
@@ -45,7 +46,7 @@ function App() {
   }
 
   const clickIntermedio = () => {
-
+    setCodigoIntermedio(obtenerCodigoIntermedio());
   }
 
   const handleOnChangePalabras = (e) => {

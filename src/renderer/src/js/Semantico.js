@@ -1,5 +1,5 @@
 import { consolaError, getContenidoVariable } from "./functions";
-import { addVariable, getSetVarialbles, vaciarSet, variableExistente } from "./Set";
+import { addVariable, vaciarSet, variableExistente } from "./Set";
 import { getTokenParser } from "./tablaParser";
 
 export function obtenerSemantico(palabras, parser){
@@ -42,6 +42,5 @@ export function obtenerSemantico(palabras, parser){
         }
 
     }
-    getSetVarialbles();
     return semantico;
 }
