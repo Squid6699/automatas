@@ -8,7 +8,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 
-function Botones({clickScan, clickParser, clickSemantico, clickBorrar, txt, setTxt}){
+function Botones({clickScan, clickParser, clickSemantico, clickIntermedio, clickBorrar, txt, setTxt}){
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -97,6 +97,10 @@ function Botones({clickScan, clickParser, clickSemantico, clickBorrar, txt, setT
 
             <Button id='botonSemantico' variant="outlined" startIcon={<ContentPasteSearchRoundedIcon />}  onClick={() => clickSemantico()}>
                 SEMANTICO
+            </Button>
+
+            <Button id='codigoIntermedio' variant="outlined" startIcon={<ContentPasteSearchRoundedIcon />}  onClick={() => clickIntermedio()}>
+                CODIGO INTERMEDIO
             </Button>
 
             <Button id='botonBorrar' variant="outlined" startIcon={<DeleteIcon />} onClick={() => clickBorrar()}>

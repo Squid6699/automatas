@@ -9,6 +9,7 @@ import { obtenerTokens } from "./js/Scanner"
 import { obtenerParser } from "./js/Parser"
 import { obtenerSemantico } from "./js/Semantico"
 import { borrarErrores, obtenerErrores } from "./js/functions"
+import Intermedio from "./components/Intermedio"
 
 function App() {
   const [txt, setTxt] = useState("");
@@ -16,6 +17,7 @@ function App() {
   const [parser, setParser] = useState("");
   const [semantico, setSemantico] = useState("");
   const [consola, setConsola] = useState("");
+  const [codigoIntermedio, setCodigoIntermedio] = useState("");
 
   const clickScan = () => {
     const palabras = txt.trim().split(/\s+/);
@@ -42,6 +44,10 @@ function App() {
     setConsola(obtenerErrores());
   }
 
+  const clickIntermedio = () => {
+
+  }
+
   const handleOnChangePalabras = (e) => {
     setTxt(e.target.value);
   }
@@ -52,6 +58,7 @@ function App() {
     setParser("");
     setSemantico("");
     setConsola("");
+    setCodigoIntermedio("");
     borrarErrores();
   }
 
@@ -59,7 +66,7 @@ function App() {
   return (
     <>
       <header>
-        <Botones clickScan = {clickScan} clickParser = {clickParser} clickSemantico = {clickSemantico} clickBorrar = {clickBorrar} txt = {txt} setTxt = {setTxt} />
+        <Botones clickScan = {clickScan} clickParser = {clickParser} clickSemantico = {clickSemantico} clickIntermedio={clickIntermedio} clickBorrar = {clickBorrar} txt = {txt} setTxt = {setTxt} />
       </header>
       
       <section className="container">
@@ -76,6 +83,10 @@ function App() {
           <div id = "parserSemantico">
             <Parser parser = {parser}/>
             <Semantico semantico={semantico}/>
+          </div>
+
+          <div id="codigoIntermedio">
+            <Intermedio codigoIntermedio={codigoIntermedio}/>
           </div>
 
           <div id="consola">
