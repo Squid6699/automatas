@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PermScanWifiRoundedIcon from '@mui/icons-material/PermScanWifiRounded';
 import CheckBoxRoundedIcon from '@mui/icons-material/CheckBoxRounded';
 import ContentPasteSearchRoundedIcon from '@mui/icons-material/ContentPasteSearchRounded';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
@@ -99,7 +100,7 @@ function Botones({clickScan, clickParser, clickSemantico, clickIntermedio, click
                 SEMANTICO
             </Button>
 
-            <Button id='codigoIntermedio' variant="outlined" startIcon={<ContentPasteSearchRoundedIcon />}  onClick={() => clickIntermedio()}>
+            <Button id='codigoIntermedio' variant="outlined" startIcon={<SettingsIcon />}  onClick={() => clickIntermedio()}>
                 CODIGO INTERMEDIO
             </Button>
 

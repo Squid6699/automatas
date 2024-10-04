@@ -101,13 +101,13 @@ header #fade-button{
 }
 
 @media (height < 767px){
-  #programa textarea, #scanner textarea{
+  #programa textarea, #scanner textarea, #codigoIntermedio textarea{
     height: 450px !important;
   }
 }
 
 @media (width < 1482px){
-  #programa textarea, #scanner textarea{
+  #programa textarea, #scanner textarea, #codigoIntermedio textarea{
     width: 375px !important;
   }
 
@@ -163,3 +163,10 @@ header #botonBorrar{
   font-weight: bold !important;
   border-color: red !important;
 }
+
+header #codigoIntermedio{
+  color: #808080 !important;
+  font-weight: bold !important;
+  border-color: #808080 !important;
+}
+

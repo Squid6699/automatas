@@ -23,7 +23,7 @@ export function esId(token){
 }
 
 export function esNumero(token){
-    var regex = /^\d+(\.\d+)?$/;
+    var regex = /^[0-9]+$/;
     return regex.test(token);
 }
 

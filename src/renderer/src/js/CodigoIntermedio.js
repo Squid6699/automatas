@@ -27,6 +27,5 @@ export function obtenerCodigoIntermedio(){
         }
 
     });
-    console.log(data);
     return data;
 }
