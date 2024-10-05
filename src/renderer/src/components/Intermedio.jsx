@@ -16,6 +16,9 @@ function Intermedio({codigoIntermedio}){
                 label="CODIGO INTERMEDIO"
                 multiline
                 value={codigoIntermedio}
+                InputProps={{
+                    style: { fontFamily: 'Courier, Courier New, monospace' }, // Aquí aplicamos la fuente monoespaciada
+                  }}
                 />
             </div>
             </Box>

@@ -1,7 +1,7 @@
 import { variables } from "./Variables";
 
 export function obtenerCodigoIntermedio(){
-    var data = "\t\t .DATA \n\n";
+    var data = "\t.DATA \n\n";
 
     variables.map((item) => {
         var numero = parseInt(item.contenido);
