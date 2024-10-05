@@ -1,5 +1,5 @@
 import { consolaError, getContenidoVariable } from "./functions";
-import { addVariable, vaciarSet, variableExistente } from "./Set";
+import { addVariable, vaciarVariables, variableExistente } from "./Variables";
 import { getTokenParser } from "./tablaParser";
 
 export function obtenerSemantico(palabras, parser){
@@ -9,7 +9,7 @@ export function obtenerSemantico(palabras, parser){
         return;
     }
 
-    vaciarSet();
+    vaciarVariables();
 
     for (var i = 2; i < palabras.length-1;i++) {
 
