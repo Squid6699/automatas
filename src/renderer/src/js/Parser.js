@@ -29,7 +29,7 @@ export function obtenerParser(palabras){
                             }
                         }
 
-                        // ID = ARIT ;
+                        // ID = ARIT ; Ó ID = " STR " ;
                         if (getTokenParser(palabras[i]) == 5){ // ID
                             var newPos = obtenerReemplazoAsignacion(palabras, i);
                             if (newPos > 0){
@@ -39,7 +39,7 @@ export function obtenerParser(palabras){
                                 found = false;
                                 break;
                             }
-                        } 
+                        }
 
                         //LEER ( id ) ;
                         if (getTokenParser(palabras[i]) == 22 ){ //LEER

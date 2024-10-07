@@ -24,6 +24,8 @@ var tablaTokens = {
     "<>": "<>, OPREL",
     "=": "=, ASIG",
     "==": "==, OPREL",
+
+    '"': '", INCIO/FIN CADENA',
     
     "+": "+, OPARI",
     "-": "-, OPARI",

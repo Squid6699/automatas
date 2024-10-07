@@ -100,19 +100,19 @@ export function obtenerAsignacion(palabras, pos){
         }
 
         // SI NO ES VACIA ENTONCES SERA UNA ASIGNACION
-        if (pos + 2 < palabras.length && getTokenParser(palabras[pos + 2]) == 17){ // =
-            if (pos + 3 < palabras.length){
-                var newPos = expresionValido(palabras, pos + 3);
-                if (newPos > 0){
-                    return newPos + 2;
-                }else{
-                    errores.push("ERROR ASIGNACION: ERROR EN EXPRESION CERCA DE " + palabras[pos + 3])
-                }
+        // if (pos + 2 < palabras.length && getTokenParser(palabras[pos + 2]) == 17){ // =
+        //     if (pos + 3 < palabras.length){
+        //         var newPos = expresionValido(palabras, pos + 3);
+        //         if (newPos > 0){
+        //             return newPos + 2;
+        //         }else{
+        //             errores.push("ERROR ASIGNACION: ERROR EN EXPRESION CERCA DE " + palabras[pos + 3])
+        //         }
                 
-            }
-        }else{
-            errores.push("ERROR ASIGNACION: FALTA = CERCA DE " + palabras[pos + 2]);
-        }
+        //     }
+        // }else{
+        //     errores.push("ERROR ASIGNACION: FALTA = CERCA DE " + palabras[pos + 2]);
+        // }
     }else{
         errores.push(palabras[pos + 1].toUpperCase() + " - NO PUEDE SER UTILIZADA COMO ID");
     }
@@ -121,18 +121,44 @@ export function obtenerAsignacion(palabras, pos){
 
 export function obtenerReemplazoAsignacion(palabras, pos){
     if (pos + 1 < palabras.length && getTokenParser(palabras[pos + 1]) == 17){ // =
-        if (pos + 2 < palabras.length){
+
+        if (pos + 2 < palabras.length && expresionValido(palabras, pos + 2)){
             var newPos = expresionValido(palabras, pos + 2);
             if (newPos > 0){
                 return newPos + 1;
+            }
+        }else{
+            errores.push("ERROR EN EXPRESION CERCA DE: " + palabras[pos + 2]);
+        }
+
+        //CADENA " STR "
+        if (pos + 2 < palabras.length && getTokenParser(palabras[pos + 2]) == 27){ // "
+            if (pos + 3 < palabras.length && obtenerCadena(palabras, pos + 3)){
+                var newPos = obtenerCadena(palabras, pos + 3);
+                if (newPos > 0){
+                    return newPos + 3;
+                }
             }else{
-                errores.push("ERROR EN EXPRESION CERCA DE: " + palabras[pos + 2]);
+                errores.push("ERROR EN CADENA CERCA DE: " + palabras[pos + 3]);
             }
         }
+
+
     }else{
         errores.push("ERROR FALTA = CERCA DE: " + palabras[pos + 1]);
     }
 
+    return 0;
+}
+
+export function obtenerCadena(palabras, pos){
+    var cadena = "";
+    for (let i = pos; i < palabras.length; i++) {
+        cadena = cadena + " " + cadena[i];
+        if (i + 1 < palabras.length && getTokenParser(palabras[i + 1]) == 27 && i + 2 < palabras.length && getTokenParser(palabras[i + 2]) == 7){ // " ;
+            return cadena.split(" ").length;
+        }
+    }
     return 0;
 }
 
