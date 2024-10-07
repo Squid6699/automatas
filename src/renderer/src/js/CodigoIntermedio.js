@@ -12,17 +12,17 @@ export function obtenerCodigoIntermedio(){
         }
 
         if (numero >= 0 && numero <= 255 || numero >= -127 && numero <= 127){
-            data = data + item.id.toUpperCase() + "\t" + "DB" + "\t" + item.contenido + "\n"
+            data = data + item.id.toUpperCase() + "\t" + "DB" + "\t" + item.contenido.trim() + "\n"
             return;
         }
 
         if (numero >= 0 && numero <= 65535 || numero >= -32768 && numero <= 32767){
-            data = data + item.id.toUpperCase() + "\t" + "DW" + "\t" + item.contenido + "\n"
+            data = data + item.id.toUpperCase() + "\t" + "DW" + "\t" + item.contenido.trim() + "\n"
             return;
         }
 
         if (numero >= 0 && numero <= 4294967295 || numero >= -2147483648 && numero <= 2147483647){
-            data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + item.contenido + "\n"
+            data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + item.contenido.trim() + "\n"
             return;
         }
         

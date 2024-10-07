@@ -100,19 +100,19 @@ export function obtenerAsignacion(palabras, pos){
         }
 
         // SI NO ES VACIA ENTONCES SERA UNA ASIGNACION
-        // if (pos + 2 < palabras.length && getTokenParser(palabras[pos + 2]) == 17){ // =
-        //     if (pos + 3 < palabras.length){
-        //         var newPos = expresionValido(palabras, pos + 3);
-        //         if (newPos > 0){
-        //             return newPos + 2;
-        //         }else{
-        //             errores.push("ERROR ASIGNACION: ERROR EN EXPRESION CERCA DE " + palabras[pos + 3])
-        //         }
+        if (pos + 2 < palabras.length && getTokenParser(palabras[pos + 2]) == 17){ // =
+            if (pos + 3 < palabras.length){
+                var newPos = expresionValido(palabras, pos + 3);
+                if (newPos > 0){
+                    return newPos + 2;
+                }else{
+                    errores.push("ERROR ASIGNACION: ERROR EN EXPRESION CERCA DE " + palabras[pos + 3])
+                }
                 
-        //     }
-        // }else{
-        //     errores.push("ERROR ASIGNACION: FALTA = CERCA DE " + palabras[pos + 2]);
-        // }
+            }
+        }else{
+            errores.push("ERROR ASIGNACION: FALTA = CERCA DE " + palabras[pos + 2]);
+        }
     }else{
         errores.push(palabras[pos + 1].toUpperCase() + " - NO PUEDE SER UTILIZADA COMO ID");
     }
