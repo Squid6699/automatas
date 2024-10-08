@@ -23,12 +23,12 @@ export function esId(token){
 }
 
 export function esNumero(token){
-    var regex = /^[0-9]+$/;
+    var regex = /^[0-9]+(\.[0-9]+)?$/;
     return regex.test(token);
 }
 
 function expresionValido(palabras, pos){
-    const EXPRESION_REGULAR = /^(?:[a-zA-Z][a-zA-Z0-9]*|\d+)(?: [\/\+\-\*] (?:[a-zA-Z][a-zA-Z0-9]*|\d+))*( ?;)?$/;
+    const EXPRESION_REGULAR = /^(?:[a-zA-Z][a-zA-Z0-9]*|\d+(?:\.\d+)?)(?: [\/\+\-\*] (?:[a-zA-Z][a-zA-Z0-9]*|\d+(?:\.\d+)?))*( ?;)?$/
 
     var nuevaConcatenacion = "";
     var newPos = 0;
@@ -101,6 +101,18 @@ export function obtenerAsignacion(palabras, pos){
 
         // SI NO ES VACIA ENTONCES SERA UNA ASIGNACION
         if (pos + 2 < palabras.length && getTokenParser(palabras[pos + 2]) == 17){ // =
+
+            if (pos + 3 < palabras.length && getTokenParser(palabras[pos + 3]) == 27){ // "
+                if (pos + 3 < palabras.length){
+                    var newPos = obtenerCadena(palabras, pos + 3);
+                    if (newPos > 0){
+                        return newPos + 3;
+                    }
+                }else{
+                    errores.push("ERROR EN CADENA CERCA DE: " + palabras[pos + 3]);
+                }
+            }
+
             if (pos + 3 < palabras.length){
                 var newPos = expresionValido(palabras, pos + 3);
                 if (newPos > 0){
@@ -209,7 +221,7 @@ export function obtenerSi(palabras, pos){
                     //VALIDAR PRIMERAS INSTRUCCIONES DENTRO DEL SI
                     for (var i = pos + newPos + 1; i < palabras.length-1; i++) {
 
-                        if (getTokenParser(palabras[i]) != 4 && getTokenParser(palabras[i]) != 5 && getTokenParser(palabras[i]) != 22 && getTokenParser(palabras[i]) != 19 && getTokenParser(palabras[i]) != 23){
+                        if (getTokenParser(palabras[i]) != 4 && getTokenParser(palabras[i]) != 5 && getTokenParser(palabras[i]) != 22 && getTokenParser(palabras[i]) != 19 && getTokenParser(palabras[i]) != 23 && getTokenParser(palabras[i]) != 28 && getTokenParser(palabras[i]) != 29){
                             break;
                         }
 
@@ -217,8 +229,8 @@ export function obtenerSi(palabras, pos){
                             break;
                         }
 
-                        // $ ID = ARIT Ó $ ID ;
-                        if (getTokenParser(palabras[i]) == 4){ // $ EN PRIMER INSTRUCCION DE SI
+                        // $ ID = ARIT Ó $ ID ; || # ID = ARIT Ó # ID ; || STR ID ; Ó STR ID = " STR "
+                        if (getTokenParser(palabras[i]) == 4 || getTokenParser(palabras[i]) == 29 || getTokenParser(palabras[i]) == 28){ // $ Ó # Ó STR PRIMER INSTRUCCION SI
                             newPosAsig1 = obtenerAsignacion(palabras, i);
                             if (newPosAsig1 > 0){
                                 i += newPosAsig1;

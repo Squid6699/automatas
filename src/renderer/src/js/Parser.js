@@ -12,14 +12,14 @@ export function obtenerParser(palabras){
 
                     for (let i = 2; i < palabras.length-1;i++) {
                         // console.log(palabras[i]);
-                        if (getTokenParser(palabras[i]) != 4 && getTokenParser(palabras[i]) != 5 && getTokenParser(palabras[i]) != 22 && getTokenParser(palabras[i]) != 19 && getTokenParser(palabras[i]) != 23){
+                        if (getTokenParser(palabras[i]) != 4 && getTokenParser(palabras[i]) != 5 && getTokenParser(palabras[i]) != 22 && getTokenParser(palabras[i]) != 19 && getTokenParser(palabras[i]) != 23 && getTokenParser(palabras[i]) != 28 && getTokenParser(palabras[i]) != 29){
                             found = false;
                             break;
                         }
 
-                        // $ ID = ARIT Ó $ ID ;
-                        if (getTokenParser(palabras[i]) == 4){ // $
-                            var newPos = obtenerAsignacion(palabras, i);
+                        // $ ID = ARIT Ó $ ID ; || # ID = ARIT Ó # ID ; || STR ID ; Ó STR ID = " STR "
+                        if (getTokenParser(palabras[i]) == 4 || getTokenParser(palabras[i]) == 29 || getTokenParser(palabras[i]) == 28){ // $ Ó # Ó STR
+                            var newPos = obtenerAsignacion(palabras, i, );
                             if (newPos > 0){
                                 i += newPos;
                                 found = true;
@@ -29,7 +29,7 @@ export function obtenerParser(palabras){
                             }
                         }
 
-                        // ID = ARIT ; Ó ID = " STR " ;
+                        // ID = ARIT ;
                         if (getTokenParser(palabras[i]) == 5){ // ID
                             var newPos = obtenerReemplazoAsignacion(palabras, i);
                             if (newPos > 0){
@@ -80,23 +80,19 @@ export function obtenerParser(palabras){
                     }
                 }else{
                     consolaError("NO SE HA PODIDO INICIAR EL PROGRAMA");
-                    // alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
                     return;
                 }
             }else{
                 consolaError("NO SE HA PODIDO INICIAR EL PROGRAMA");
-                // alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
                 return;
             }
 
         }else{
             consolaError("NO SE HA PODIDO INICIAR EL PROGRAMA");
-            // alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
             return;
         }
     }else{
         consolaError("NO SE HA PODIDO INICIAR EL PROGRAMA");
-        // alert("NO SE HA PODIDO INICIAR EL PROGRAMA");
         return;
     }
 

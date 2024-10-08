@@ -44,4 +44,6 @@ var tablaParser = {
     "sino": 25,
     "finsi": 26,
     '"': 27,
+    "str": 28,
+    "#": 29,
 };

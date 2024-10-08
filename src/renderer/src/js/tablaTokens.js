@@ -43,6 +43,8 @@ var tablaTokens = {
     ")": "), PARENTESIS CERRADO",
     "{": "{, LLAVES APERTURA",
     "}": "}, LLAVES CERRADO",
-    "$": "$, INICIO DECLARACION",
+    "$": "$, DECLARACION FLOAT",
+    "str": "STR, DECLARACION CADENA",
+    "#": "#, DECLARACION ENTERO",
     ";": ";, FIN LINEA"
 };
