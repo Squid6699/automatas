@@ -122,18 +122,8 @@ export function obtenerAsignacion(palabras, pos){
 export function obtenerReemplazoAsignacion(palabras, pos){
     if (pos + 1 < palabras.length && getTokenParser(palabras[pos + 1]) == 17){ // =
 
-        if (pos + 2 < palabras.length && expresionValido(palabras, pos + 2)){
-            var newPos = expresionValido(palabras, pos + 2);
-            if (newPos > 0){
-                return newPos + 1;
-            }
-        }else{
-            errores.push("ERROR EN EXPRESION CERCA DE: " + palabras[pos + 2]);
-        }
-
-        //CADENA " STR "
         if (pos + 2 < palabras.length && getTokenParser(palabras[pos + 2]) == 27){ // "
-            if (pos + 3 < palabras.length && obtenerCadena(palabras, pos + 3)){
+            if (pos + 3 < palabras.length){
                 var newPos = obtenerCadena(palabras, pos + 3);
                 if (newPos > 0){
                     return newPos + 3;
@@ -143,7 +133,15 @@ export function obtenerReemplazoAsignacion(palabras, pos){
             }
         }
 
-
+        if (pos + 2 < palabras.length){
+            var newPos = expresionValido(palabras, pos + 2);
+            if (newPos > 0){
+                return newPos + 1;
+            }
+        }else{
+            errores.push("ERROR EN EXPRESION CERCA DE: " + palabras[pos + 2]);
+        }
+        
     }else{
         errores.push("ERROR FALTA = CERCA DE: " + palabras[pos + 1]);
     }

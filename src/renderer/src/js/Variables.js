@@ -12,3 +12,7 @@ export function addVariable(variable){
 export function vaciarVariables(){
     variables = [];
 }
+
+export function getVariables(){
+    console.log(variables);
+}

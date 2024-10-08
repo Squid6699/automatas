@@ -28,18 +28,25 @@ export function obtenerSemantico(palabras, parser){
         }
 
         // VALIDAR QUE UNA VARIABLE ESTA DEFINIDA
-        if (getTokenParser(palabras[i]) == 5) { // ID
-            if (i > 0 && getTokenParser(palabras[i - 1]) != 4) { // $
-                var variable = palabras[i]; // Se guarda el token que no tiene $ antes.
-                if (!variableExistente(variable)) {
-                    consolaError(variable.toUpperCase() + " NO ESTA DEFINIDA");
-                    semantico = false;
-                    break;
-                }else{
-                    semantico = true;
-                }
-            }
+        if (getTokenParser(palabras[i]) == 27){ // "
+
         }
+
+
+
+
+        // if (getTokenParser(palabras[i]) == 5) { // ID
+        //     if (i > 0 && getTokenParser(palabras[i - 1]) != 4) { // $
+        //         var variable = palabras[i]; // Se guarda el token que no tiene $ antes.
+        //         if (!variableExistente(variable)) {
+        //             consolaError(variable.toUpperCase() + " NO ESTA DEFINIDA");
+        //             semantico = false;
+        //             break;
+        //         }else{
+        //             semantico = true;
+        //         }
+        //     }
+        // }
 
     }
     return semantico;
