@@ -6,7 +6,7 @@ export function obtenerCodigoIntermedio(){
     variables.map((item) => {
 
         if (item.tipo === "str" && item.valorInicial === ""){
-            data = data + item.id.toUpperCase() + "\t" + "DB" + "   " + "80 dump(“$”)" + "\n";
+            data = data + item.id.toUpperCase() + "\t" + "DB" + "   " + "80 dup(“$”)" + "\n";
             return;
         }
 
