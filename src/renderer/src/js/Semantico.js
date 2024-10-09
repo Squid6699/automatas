@@ -1,5 +1,5 @@
 import { consolaError, getContenidoVariable } from "./functions";
-import { addVariable, vaciarVariables, variableExistente } from "./Variables";
+import { addVariable, getVariables, vaciarVariables, variableExistente } from "./Variables";
 import { getTokenParser } from "./tablaParser";
 
 export function obtenerSemantico(palabras, parser){
@@ -9,13 +9,15 @@ export function obtenerSemantico(palabras, parser){
         return;
     }
 
+    // getVariables();
     vaciarVariables();
 
     for (var i = 2; i < palabras.length-1;i++) {
 
         //VALIDAR QUE NO SE REPITAN VARIABLES
-        if (getTokenParser(palabras[i]) == 4){ // $
-            var variable = palabras[i + 1]; // Sacar el siguiente token despues del $
+        if (getTokenParser(palabras[i]) == 4 || getTokenParser(palabras[i]) == 29 || getTokenParser(palabras[i]) == 28){ // $ Ó # Ó STR
+            var tipo = palabras[i];
+            var variable = palabras[i + 1]; // Sacar el siguiente token despues del tipo
             if (variableExistente(variable)){
                 consolaError(variable.toUpperCase() + " YA SE ENCUENTRA DEFINIDA");
                 semantico = false;
@@ -23,31 +25,32 @@ export function obtenerSemantico(palabras, parser){
             }else{
                 var contenidoVariable = getContenidoVariable(palabras, i + 2);
                 semantico = true;
-                addVariable({"id": variable, "contenido": contenidoVariable});
+                addVariable({"tipo": tipo ,"id": variable, "valorInicial": contenidoVariable.trim()});
             }
         }
 
-        // VALIDAR QUE UNA VARIABLE ESTA DEFINIDA
-        if (getTokenParser(palabras[i]) == 27){ // "
 
+        
+        // VALIDAR QUE UNA VARIABLE ESTA DEFINIDA
+        if (getTokenParser(palabras[i]) == 5) { // ID
+            if (i > 0 && getTokenParser(palabras[i - 1]) != 4 || i > 0 && getTokenParser(palabras[i - 1]) != 29 || i > 0 && getTokenParser(palabras[i - 1]) != 28) { // $ Ó # Ó STR
+                var variable = palabras[i]; // Se guarda el token que no tiene tipo antes.
+                if (!variableExistente(variable)) {
+                    consolaError(variable.toUpperCase() + " NO ESTA DEFINIDA");
+                    semantico = false;
+                    break;
+                }else{
+                    semantico = true;
+                }
+            }
         }
 
-
-
-
-        // if (getTokenParser(palabras[i]) == 5) { // ID
-        //     if (i > 0 && getTokenParser(palabras[i - 1]) != 4) { // $
-        //         var variable = palabras[i]; // Se guarda el token que no tiene $ antes.
-        //         if (!variableExistente(variable)) {
-        //             consolaError(variable.toUpperCase() + " NO ESTA DEFINIDA");
-        //             semantico = false;
-        //             break;
-        //         }else{
-        //             semantico = true;
-        //         }
-        //     }
-        // }
-
+        //IGNORAR EL CONTENIDO DE LA CADENA
+        if ( getTokenParser(palabras[i]) == 28){
+            var contenidoCadena = getContenidoVariable(palabras, i + 2).split(" ");
+            i += contenidoCadena.length;
+        }
     }
+
     return semantico;
 }
