@@ -1,0 +1,9 @@
+B {
+
+$ dec ;
+$ dec2 = 10.02 ;
+# ent ;
+# ent2 = 10 ; 
+str cad ;
+str cad2 = " cadena " ;
+}

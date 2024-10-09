@@ -4,7 +4,16 @@ export function obtenerCodigoIntermedio(){
     var data = "\t.DATA \n\n";
 
     variables.map((item) => {
-        // var numero = parseInt(item.valorInicial);
+
+        if (item.tipo === "str" && item.valorInicial === ""){
+            data = data + item.id.toUpperCase() + "\t" + "DB" + "   " + "80 dump(“$”)" + "\n";
+            return;
+        }
+
+        if (item.tipo === "str" && item.valorInicial !== ""){
+            data = data + item.id.toUpperCase() + "\t" + "DB" + "   " + '"' + item.valorInicial.replace(/["']/g, "").trim() + " $" + '"' + "\n";
+            return;
+        }
 
         if (item.tipo === "$" && item.valorInicial === ""){
             data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + "?" + "\n";
