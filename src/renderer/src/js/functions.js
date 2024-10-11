@@ -106,7 +106,7 @@ export function obtenerAsignacion(palabras, pos){
                 if (pos + 3 < palabras.length){
                     var newPos = obtenerCadena(palabras, pos + 3);
                     if (newPos > 0){
-                        return newPos + 3;
+                        return newPos;
                     }
                 }else{
                     errores.push("ERROR EN CADENA CERCA DE: " + palabras[pos + 3]);
@@ -138,7 +138,7 @@ export function obtenerReemplazoAsignacion(palabras, pos){
             if (pos + 3 < palabras.length){
                 var newPos = obtenerCadena(palabras, pos + 3);
                 if (newPos > 0){
-                    return newPos + 3;
+                    return newPos;
                 }
             }else{
                 errores.push("ERROR EN CADENA CERCA DE: " + palabras[pos + 3]);
@@ -162,14 +162,17 @@ export function obtenerReemplazoAsignacion(palabras, pos){
 }
 
 export function obtenerCadena(palabras, pos){
-    var cadena = "";
-    for (let i = pos; i < palabras.length; i++) {
-        cadena = cadena + " " + cadena[i];
-        if (i + 1 < palabras.length && getTokenParser(palabras[i + 1]) == 27 && i + 2 < palabras.length && getTokenParser(palabras[i + 2]) == 7){ // " ;
-            return cadena.split(" ").length;
-        }
+    // var cadena = "";
+    // for (let i = pos; i < palabras.length; i++) {
+    //     cadena = cadena + " " + cadena[i];
+    //     if (i + 1 < palabras.length && getTokenParser(palabras[i + 1]) == 27 && i + 2 < palabras.length && getTokenParser(palabras[i + 2]) == 7){ // " ;
+    //         return cadena.split(" ").length;
+    //     }
+    // }
+    // return 0;
+    if (pos + 1 < palabras.length){
+        return 6;
     }
-    return 0;
 }
 
 export function obtenerLeer(palabras, pos){
