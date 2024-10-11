@@ -9,7 +9,7 @@ export function obtenerSemantico(palabras, parser){
         return;
     }
 
-    // getVariables();
+    getVariables();
     vaciarVariables();
 
     for (var i = 2; i < palabras.length-1;i++) {
@@ -46,9 +46,9 @@ export function obtenerSemantico(palabras, parser){
         }
 
         //IGNORAR EL CONTENIDO DE LA CADENA
-        if ( getTokenParser(palabras[i]) == 28){
-            var contenidoCadena = getContenidoVariable(palabras, i + 2).split(" ");
-            i += contenidoCadena.length;
+        if ( getTokenParser(palabras[i]) == 27){ // "
+            if (i + 3 < palabras.length )
+            i += 3;
         }
     }
 

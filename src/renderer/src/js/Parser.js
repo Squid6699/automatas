@@ -11,7 +11,7 @@ export function obtenerParser(palabras){
                 if (getTokenParser(palabras[palabras.length - 1]) === 3) { //}
 
                     for (let i = 2; i < palabras.length-1;i++) {
-                        console.log(palabras[i]);
+                        // console.log(palabras[i]);
                         if (getTokenParser(palabras[i]) != 4 && getTokenParser(palabras[i]) != 5 && getTokenParser(palabras[i]) != 22 && getTokenParser(palabras[i]) != 19 && getTokenParser(palabras[i]) != 23 && getTokenParser(palabras[i]) != 28 && getTokenParser(palabras[i]) != 29){
                             found = false;
                             break;
