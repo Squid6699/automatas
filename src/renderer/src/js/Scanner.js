@@ -10,18 +10,6 @@ export function obtenerTokens(palabras){
     }
 
     for (let i = 0; i < palabras.length; i++) {
-        var contenido;
-        if (palabras[i] == '"' && i + 1 < palabras.length){
-            for (let j = i + 1; j < palabras.length; j++) {
-                if (palabras[j] == '"' ){
-                    break;
-                }else{
-                    contenido = contenido + " " + palabras[j];
-                }
-            }
-            i+= contenido.split(" ").length
-        }
-        
 
         var tokenType = getToken(palabras[i]);
         if (tokenType != null) {

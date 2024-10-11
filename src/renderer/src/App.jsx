@@ -20,13 +20,30 @@ function App() {
   const [consola, setConsola] = useState("");
   const [codigoIntermedio, setCodigoIntermedio] = useState("");
 
+  const regex = /"([^"]+)"|([^\s"]+)|(")/g;
+  const palabras = [];
+
+  let match;  
+  while ((match = regex.exec(txt)) !== null) {
+    if (match[1]) {
+      // Si es contenido entre comillas
+      palabras.push('"');
+      palabras.push(match[1].trim());
+      palabras.push('"');
+    } else if (match[2]) {
+      // Si es una palabra fuera de comillas
+      palabras.push(match[2]);
+    } else if (match[3]) {
+      // Si es una comilla suelta
+      palabras.push(match[3]);
+    }
+  }
+
   const clickScan = () => {
-    const palabras = txt.trim().split(/\s+/);
     setListaTokens(obtenerTokens(palabras));
   }
 
   const clickParser = () => {
-    const palabras = txt.trim().split(/\s+/);
     if (obtenerParser(palabras)){
       setParser(true);
     }else{
@@ -36,7 +53,6 @@ function App() {
   }
 
   const clickSemantico = () => {
-    const palabras = txt.trim().split(/\s+/);
     if (obtenerSemantico(palabras, parser)){
       setSemantico(true);
     }else{

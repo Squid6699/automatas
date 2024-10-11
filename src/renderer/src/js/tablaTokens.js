@@ -11,8 +11,9 @@ export function getToken(token){
         return token +", ID";
     }else if (!esId(token) && esNumero(token)){
         return token +", D";
+    }else if (!esId(token) && !esNumero(token)){
+        return token +", CADENA";
     }
-
     return null;
 }
 
