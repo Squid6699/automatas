@@ -2,6 +2,7 @@ B {
   $ x ;
   $ y ;
   $ suma ;
+  str msg = "La suma es: "
   x = 12 ;
   y = 10 ;
   suma = x + y ;
