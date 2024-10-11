@@ -25,7 +25,15 @@ export function obtenerSemantico(palabras, parser){
             }else{
                 var contenidoVariable = getContenidoVariable(palabras, i + 2);
                 semantico = true;
-                addVariable({"tipo": tipo ,"id": variable, "valorInicial": contenidoVariable.trim()});
+                var bits;
+                if (tipo == "str"){
+                    bits = 8
+                } else if (tipo == "$"){
+                    bits = 32
+                }else if (tipo == "#"){
+                    bits = 16
+                }
+                addVariable({"tipo": tipo ,"id": variable, "valorInicial": contenidoVariable.trim(), "Bits": bits });
             }
         }
 
