@@ -1,5 +1,5 @@
 import { consolaError, getContenidoVariable } from "./functions";
-import { addVariable, getVariables, vaciarVariables, variableExistente } from "./Variables";
+import { addInstruccion, addVariable, getIntrucciones, getVariables, vaciarInstrucciones, vaciarVariables, variableExistente } from "./Variables";
 import { getTokenParser } from "./tablaParser";
 
 export function obtenerSemantico(palabras, parser){
@@ -9,11 +9,13 @@ export function obtenerSemantico(palabras, parser){
         return;
     }
 
-    getVariables();
+    // getVariables();
+    getIntrucciones();
     vaciarVariables();
+    vaciarInstrucciones();
 
     for (var i = 2; i < palabras.length-1;i++) {
-
+        // console.log(palabras[i])
         //VALIDAR QUE NO SE REPITAN VARIABLES
         if (getTokenParser(palabras[i]) == 4 || getTokenParser(palabras[i]) == 29 || getTokenParser(palabras[i]) == 28){ // $ Ó # Ó STR
             var tipo = palabras[i];
@@ -33,7 +35,7 @@ export function obtenerSemantico(palabras, parser){
                 }else if (tipo == "#"){
                     bits = 16
                 }
-                addVariable({"tipo": tipo ,"id": variable, "valor": contenidoVariable.trim(), "Bits": bits });
+                addVariable({"tipo": tipo ,"id": variable, "valorInicial": contenidoVariable.contenido, "Bits": bits });
             }
         }
 
@@ -47,13 +49,23 @@ export function obtenerSemantico(palabras, parser){
                     consolaError(variable.toUpperCase() + " NO ESTA DEFINIDA");
                     semantico = false;
                     break;
-                }else{
-                    semantico = true;
                 }
+                var contenidoVariable = getContenidoVariable(palabras, i + 1);
+                i = contenidoVariable.finalPos;
+                addInstruccion({"id": variable, "valor": contenidoVariable.contenido});
+                semantico = true;
             }
         }
 
-        //IGNORAR EL CONTENIDO DE LA CADENA
+        if (getTokenParser(palabras[i]) == 19){ //OUT
+            addInstruccion({"id": "", "valor": "OUT " + "( "+ palabras[i+2] + " )"});
+        }
+
+        if (getTokenParser(palabras[i]) == 22){ //LEER
+            addInstruccion({"id": "", "valor": "LEER " + "( "+ palabras[i+2] + " )"});
+        }
+
+        // IGNORAR EL CONTENIDO DE LA CADENA
         if ( getTokenParser(palabras[i]) == 27){ // "
             if (i + 3 < palabras.length )
             i += 3;

@@ -1,9 +1,20 @@
 B {
-  # x ;
+  # x = 5 ;
   # y ;
   # suma ;
+  # a = 2 ;
+  # c = 10 ;
+  # div ;
+  str leerx ;
 
   x = 12 ;
   y = 10 ;
   suma = x + y ;
+
+  div = a / c ;
+
+  out ( suma ) ;
+  out ( div ) ;
+
+  leer ( leerx ) ;
 }

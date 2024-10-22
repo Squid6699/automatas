@@ -1,51 +1,156 @@
-import { variables } from "./Variables";
+import { instrucciones, variables } from "./Variables";
 
 export function obtenerCodigoIntermedio(){
     var data = "\t.DATA \n\n";
 
     variables.map((item) => {
 
-        if (item.tipo === "str" && item.valor === ""){
+        if (item.tipo === "str" && item.valorInicial === ""){
             data = data + item.id.toUpperCase() + "\t" + "DB" + "   " + "80 dup(“$”)" + "\n";
             return;
         }
 
-        if (item.tipo === "str" && item.valor !== ""){
-            data = data + item.id.toUpperCase() + "\t" + "DB" + "   " + '"' + item.valor.replace(/["']/g, "").trim() + " $" + '"' + "\n";
+        if (item.tipo === "str" && item.valorInicial !== ""){
+            data = data + item.id.toUpperCase() + "\t" + "DB" + "   " + '"' + item.valorInicial.replace(/["']/g, "").trim() + " $" + '"' + "\n";
             return;
         }
 
-        if (item.tipo === "$" && item.valor === ""){
+        if (item.tipo === "$" && item.valorInicial === ""){
             data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + "?" + "\n";
             return;
         }
 
-        if (item.tipo === "$" && item.valor !== ""){
-            data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + item.valor.trim() + "\n";
+        if (item.tipo === "$" && item.valorInicial !== ""){
+            data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + item.valorInicial.trim() + "\n";
             return;
         }
 
-        if (item.tipo === "#" && item.valor === ""){
+        if (item.tipo === "#" && item.valorInicial === ""){
             data = data + item.id.toUpperCase() + "\t" + "DW" + "\t" + "?" + "\n";
             return;
         }
 
-        if (item.tipo === "#" && item.valor >= 0 && item.valor <= 255 || item.valor >= -127 && item.valor <= 127){
-            data = data + item.id.toUpperCase() + "\t" + "DB" + "\t" + item.valor.trim() + "\n"
+        if (item.tipo === "#" && item.valorInicial >= 0 && item.valorInicial <= 255 || item.valorInicial >= -127 && item.valorInicial <= 127){
+            data = data + item.id.toUpperCase() + "\t" + "DB" + "\t" + item.valorInicial.trim() + "\n"
             return;
         }
 
-        if (item.tipo === "#" && item.valor >= 0 && item.valor <= 65535 || item.valor >= -32768 && item.valor <= 32767){
-            data = data + item.id.toUpperCase() + "\t" + "DW" + "\t" + item.valor.trim() + "\n"
+        if (item.tipo === "#" && item.valorInicial >= 0 && item.valorInicial <= 65535 || item.valorInicial >= -32768 && item.valorInicial <= 32767){
+            data = data + item.id.toUpperCase() + "\t" + "DW" + "\t" + item.valorInicial.trim() + "\n"
             return;
         }
 
-        if (item.tipo === "#" && item.valor >= 0 && item.valor <= 4294967295 || item.valor >= -2147483648 && item.valor <= 2147483647){
-            data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + item.valor.trim() + "\n"
+        if (item.tipo === "#" && item.valorInicial >= 0 && item.valorInicial <= 4294967295 || item.valorInicial >= -2147483648 && item.valorInicial <= 2147483647){
+            data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + item.valorInicial.trim() + "\n"
             return;
         }
         
     })
 
+    data = data + "\n\n\t.CODE \n\n";
+
+    instrucciones.map((item) => {
+
+        if (!isNaN(parseFloat(item.valor))){
+            data = data + asignacion(item) + "\n";
+        }
+
+        if (item.valor.includes("OUT")){
+            data = data + out(item) + "\n";
+        }
+
+        if (item.valor.includes("LEER")){
+            data = data + leer(item) + "\n";
+        }
+
+        if (item.valor.includes("/")){
+            data = data + division(item) + "\n";
+        }
+
+        if (item.valor.includes("*")){
+            data = data + multiplicacion(item) + "\n";
+        }
+
+        if (item.valor.includes("+")){
+            data = data + suma(item) + "\n";
+        }
+
+        if (item.valor.includes("-")){
+            data = data + resta(item) + "\n";
+        }
+
+    })
+
     return data;
+}
+
+export function asignacion(instruccion){
+    var cadena = "";
+    cadena = cadena + "MOV \t"+instruccion.id.toUpperCase() + ", \t"+instruccion.valor + "\n";
+    return cadena;
+}
+
+export function division(instruccion){
+    var cadena = "";
+    const operacion = instruccion.valor.split("/");
+    
+    cadena = cadena + "MOV \t" + "AX, \t"+operacion[0].trim().toUpperCase() + "\n";
+    cadena = cadena + "MOV \t" + "BX, \t"+operacion[1].trim().toUpperCase() + "\n";
+    cadena = cadena + "DIV \tBX" + "\n";
+    cadena = cadena + "MOV \t"+instruccion.id.toUpperCase() + ", " + "\tAL"  + "\n";
+    return cadena;
+}
+
+export function multiplicacion(instruccion){
+    var cadena = "";
+    const operacion = instruccion.valor.split("*");
+    cadena = cadena + "MOV \tAX, \t"+operacion[0].trim().toUpperCase() + "\n";
+    cadena = cadena + "MOV \tBX, \t"+operacion[1].trim().toUpperCase() + "\n";
+    cadena = cadena + "MUL \tBX" + "\n";
+    cadena = cadena + "MOV \t"+instruccion.id.toUpperCase() + ", " + "\tEAX" + "\n";
+    return cadena;
+}
+
+export function suma(instruccion){
+    var cadena = "";
+    const operacion = instruccion.valor.split("+");
+    cadena = cadena + "MOV "+ "\t" + "AX, \t "+operacion[0].trim().toUpperCase() + "\n";
+    cadena = cadena + "ADD "+ "\t" + "AX, \t "+operacion[1].trim().toUpperCase() + "\n";
+    cadena = cadena + "MOV "+ "\t" +instruccion.id.toUpperCase() + ", \t" + "AX" + "\n";
+    return cadena;
+}
+
+export function resta(instruccion){
+    var cadena = "";
+    const operacion = instruccion.valor.split("-");
+    cadena = cadena + "MOV "+ "\t" + "AX, \t "+operacion[0].trim().toUpperCase() + "\n";
+    cadena = cadena + "SUB "+ "\t" + "AX, \t "+operacion[1].trim().toUpperCase() + "\n";
+    cadena = cadena + "MOV "+ "\t" +instruccion.id.toUpperCase() + ", \t" + "AX" + "\n";
+    return cadena;
+}
+
+export function out(instruccion){
+    var cadena = "";
+    const operacion = instruccion.valor.split(" ");
+    cadena = cadena + "MOV \t" + "BX, \t0001H"+ "\n";
+    cadena = cadena + "MOV \t" + "DL, \t" + operacion[2].toUpperCase() + "\n";
+    cadena = cadena + "MOV \t" + "AH, \t" + "02H" + "\n";
+    cadena = cadena + "INT \t21H" + "\n";
+    return cadena;
+}
+
+export function leer(instruccion){
+    var cadena = "";
+    const operacion = instruccion.valor.split(" ");
+    cadena = cadena + "MOV \t" + "BX, \t0000H"+ "\n";
+    cadena = cadena + "LEA \t" + "DX, \t" + operacion[2].toUpperCase() + "\n";
+    cadena = cadena + "MOV \t" + "AH, \t" + "0AH" + "\n";
+    cadena = cadena + "INT \t21H" + "\n\n";
+    cadena = cadena + "MOV \tDL, \t0DH" + "\n";
+    cadena = cadena + "MOV \t" + "AH, \t" + "02H" + "\n";
+    cadena = cadena + "INT \t21H" + "\n\n";
+    cadena = cadena + "MOV \t" + "DL, \t" + "0AH" + "\n";
+    cadena = cadena + "MOV \t" + "AH, \t" + "02H" + "\n";
+    cadena = cadena + "INT \t21H" + "\n\n";
+    return cadena;
 }

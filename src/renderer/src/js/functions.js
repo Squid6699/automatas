@@ -355,17 +355,18 @@ export function consolaError(msg){
 
 export function getContenidoVariable(palabras, pos){
     var contenido = "";
+    var finalPos = pos;  // Guarda la posición final
 
     if (getTokenParser(palabras[pos]) == 17){ // =
         for (let i = pos + 1; i < palabras.length; i++) {
+
             if (getTokenParser(palabras[i]) == 7 ){ // ;
+                finalPos = i; // Guarda la posición final
                 break;
             }else{
                 contenido = contenido + " " + palabras[i];
             }
         }
-    }else{
-        contenido = "";
     }
-    return contenido;
+    return { contenido: contenido.trim(), finalPos };  // Retorna contenido y posición final
 }
