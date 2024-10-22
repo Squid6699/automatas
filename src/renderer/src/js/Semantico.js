@@ -33,7 +33,7 @@ export function obtenerSemantico(palabras, parser){
                 }else if (tipo == "#"){
                     bits = 16
                 }
-                addVariable({"tipo": tipo ,"id": variable, "valorInicial": contenidoVariable.trim(), "Bits": bits });
+                addVariable({"tipo": tipo ,"id": variable, "valor": contenidoVariable.trim(), "Bits": bits });
             }
         }
 

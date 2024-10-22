@@ -1,8 +1,0 @@
-B {
-  $ x = 0 ;
-  Leer ( x ) ;
-  $ y = 0 ;
-  Leer ( x ) ;
-  $ suma = x + y ;
-  out ( suma ) ;
-}

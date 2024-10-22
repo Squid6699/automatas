@@ -1,17 +1,9 @@
 B {
-    leer ( x ) ;
-    leer ( y ) ;
-    $ suma = x + y + 20 ; 
-    $ division = x / y + 10 ;
-    si ( suma >= division ) : 
-        out ( x ) ;
-        $ division = suma / x ;
-        leer ( y ) ;
-        sino
-        out ( x ) ;
-        $ suma = division / x ;
-        leer ( y ) ;
-    finsi
-    out ( suma ) ;
-    out ( division ) ;
+  # x ;
+  # y ;
+  # suma ;
+
+  x = 12 ;
+  y = 10 ;
+  suma = x + y ;
 }

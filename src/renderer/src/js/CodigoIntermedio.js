@@ -5,43 +5,43 @@ export function obtenerCodigoIntermedio(){
 
     variables.map((item) => {
 
-        if (item.tipo === "str" && item.valorInicial === ""){
+        if (item.tipo === "str" && item.valor === ""){
             data = data + item.id.toUpperCase() + "\t" + "DB" + "   " + "80 dup(“$”)" + "\n";
             return;
         }
 
-        if (item.tipo === "str" && item.valorInicial !== ""){
-            data = data + item.id.toUpperCase() + "\t" + "DB" + "   " + '"' + item.valorInicial.replace(/["']/g, "").trim() + " $" + '"' + "\n";
+        if (item.tipo === "str" && item.valor !== ""){
+            data = data + item.id.toUpperCase() + "\t" + "DB" + "   " + '"' + item.valor.replace(/["']/g, "").trim() + " $" + '"' + "\n";
             return;
         }
 
-        if (item.tipo === "$" && item.valorInicial === ""){
+        if (item.tipo === "$" && item.valor === ""){
             data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + "?" + "\n";
             return;
         }
 
-        if (item.tipo === "$" && item.valorInicial !== ""){
-            data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + item.valorInicial.trim() + "\n";
+        if (item.tipo === "$" && item.valor !== ""){
+            data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + item.valor.trim() + "\n";
             return;
         }
 
-        if (item.tipo === "#" && item.valorInicial === ""){
+        if (item.tipo === "#" && item.valor === ""){
             data = data + item.id.toUpperCase() + "\t" + "DW" + "\t" + "?" + "\n";
             return;
         }
 
-        if (item.tipo === "#" && item.valorInicial >= 0 && item.valorInicial <= 255 || item.valorInicial >= -127 && item.valorInicial <= 127){
-            data = data + item.id.toUpperCase() + "\t" + "DB" + "\t" + item.valorInicial.trim() + "\n"
+        if (item.tipo === "#" && item.valor >= 0 && item.valor <= 255 || item.valor >= -127 && item.valor <= 127){
+            data = data + item.id.toUpperCase() + "\t" + "DB" + "\t" + item.valor.trim() + "\n"
             return;
         }
 
-        if (item.tipo === "#" && item.valorInicial >= 0 && item.valorInicial <= 65535 || item.valorInicial >= -32768 && item.valorInicial <= 32767){
-            data = data + item.id.toUpperCase() + "\t" + "DW" + "\t" + item.valorInicial.trim() + "\n"
+        if (item.tipo === "#" && item.valor >= 0 && item.valor <= 65535 || item.valor >= -32768 && item.valor <= 32767){
+            data = data + item.id.toUpperCase() + "\t" + "DW" + "\t" + item.valor.trim() + "\n"
             return;
         }
 
-        if (item.tipo === "#" && item.valorInicial >= 0 && item.valorInicial <= 4294967295 || item.valorInicial >= -2147483648 && item.valorInicial <= 2147483647){
-            data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + item.valorInicial.trim() + "\n"
+        if (item.tipo === "#" && item.valor >= 0 && item.valor <= 4294967295 || item.valor >= -2147483648 && item.valor <= 2147483647){
+            data = data + item.id.toUpperCase() + "\t" + "DD" + "\t" + item.valor.trim() + "\n"
             return;
         }
         
