@@ -42,9 +42,8 @@ export function obtenerSemantico(palabras, parser){
 
         
         // VALIDAR QUE UNA VARIABLE ESTA DEFINIDA
-        if (getTokenParser(palabras[i]) == 5) { // ID
-            if (i > 0 && getTokenParser(palabras[i - 1]) != 4 || i > 0 && getTokenParser(palabras[i - 1]) != 29 || i > 0 && getTokenParser(palabras[i - 1]) != 28) { // $ Ó # Ó STR
-                var variable = palabras[i]; // Se guarda el token que no tiene tipo antes.
+        if (i > 0 && getTokenParser(palabras[i - 1]) != 4 && i > 0 && getTokenParser(palabras[i - 1]) != 29 && i > 0 && getTokenParser(palabras[i - 1]) != 28) { // $ Ó # Ó STR
+            if (getTokenParser(palabras[i]) == 5) { // ID                var variable = palabras[i]; // Se guarda el token que no tiene tipo antes.
                 if (!variableExistente(variable)) {
                     consolaError(variable.toUpperCase() + " NO ESTA DEFINIDA");
                     semantico = false;
