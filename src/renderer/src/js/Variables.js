@@ -35,11 +35,6 @@ export function addInstruccion(instruccion){
     }
 }
 
-// export function cambiarValorVariable(variable, nuevoValor) {
-//     const index = instrucciones.findIndex(item => item.id === variable);
-//     variables[index].valor = nuevoValor;
-// }
-
 export function vaciarInstrucciones(){
     instrucciones = [];
 }
