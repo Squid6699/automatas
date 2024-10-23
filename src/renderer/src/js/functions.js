@@ -370,3 +370,17 @@ export function getContenidoVariable(palabras, pos){
     }
     return { contenido: contenido.trim(), finalPos };  // Retorna contenido y posición final
 }
+
+export function getContenidoSi(palabras, pos){
+    var contenido = ""
+    var finalPos = pos;
+
+    for (let i = pos; id < palabras.length; i++) {
+        if (getTokenParser(palabras[i] == 26)){
+            finalPos = i;
+            break;
+        }else{
+            contenido = contenido + " " + palabras[i];
+        }
+    }
+}

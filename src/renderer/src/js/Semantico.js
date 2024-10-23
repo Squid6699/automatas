@@ -10,7 +10,7 @@ export function obtenerSemantico(palabras, parser){
     }
 
     // getVariables();
-    getIntrucciones();
+    // getIntrucciones();
     vaciarVariables();
     vaciarInstrucciones();
 
@@ -55,6 +55,11 @@ export function obtenerSemantico(palabras, parser){
                 addInstruccion({"id": variable, "valor": contenidoVariable.contenido});
                 semantico = true;
             }
+        }
+
+        //ENCUENTRA UN SI
+        if (getTokenParser(palabras[i]) == 23){
+
         }
 
         if (getTokenParser(palabras[i]) == 19){ //OUT
