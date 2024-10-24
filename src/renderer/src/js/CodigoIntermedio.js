@@ -178,7 +178,7 @@ export function clausulaSi(instruccion){
     var cadenaSi = [];
     var cadenaSino = [];
 
-    cadena = cadena + "CPM \t"+instruccionSi[2].toUpperCase() +", "+ instruccionSi[4].toUpperCase() + "\n";
+    cadena = cadena + "CMP \t"+instruccionSi[2].toUpperCase() +", "+ instruccionSi[4].toUpperCase() + "\n";
 
     if (instruccionSi[3] === ">"){
         nEtiquetas++;
