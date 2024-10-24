@@ -1,4 +1,4 @@
-import { consolaError, getContenidoVariable } from "./functions";
+import { consolaError, getContenidoSi, getContenidoVariable } from "./functions";
 import { addInstruccion, addVariable, getIntrucciones, getVariables, vaciarInstrucciones, vaciarVariables, variableExistente } from "./Variables";
 import { getTokenParser } from "./tablaParser";
 
@@ -59,7 +59,9 @@ export function obtenerSemantico(palabras, parser){
 
         //ENCUENTRA UN SI
         if (getTokenParser(palabras[i]) == 23){
-
+            var contenidoSi = getContenidoSi(palabras, i);
+            i = contenidoSi.finalPos;
+            addInstruccion({"id": "", "valor": contenidoSi.contenido});
         }
 
         if (getTokenParser(palabras[i]) == 19){ //OUT

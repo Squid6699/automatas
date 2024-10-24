@@ -1,3 +1,4 @@
+import { getContenidoVariable } from "./functions";
 import { instrucciones, variables } from "./Variables";
 
 export function obtenerCodigoIntermedio(){
@@ -49,7 +50,14 @@ export function obtenerCodigoIntermedio(){
 
     data = data + "\n\n\t.CODE \n\n";
 
-    instrucciones.map((item) => {
+    data = data + puntoCode(instrucciones);
+
+    return data;
+}
+
+function puntoCode(items){
+    var data = "";
+    items.map((item) => {
 
         if (!isNaN(parseFloat(item.valor))){
             data = data + asignacion(item) + "\n";
@@ -61,6 +69,10 @@ export function obtenerCodigoIntermedio(){
 
         if (item.valor.includes("LEER")){
             data = data + leer(item) + "\n";
+        }
+
+        if (item.valor.includes("si")){
+            data = data + clausulaSi(item);
         }
 
         if (item.valor.includes("/")){
@@ -81,7 +93,7 @@ export function obtenerCodigoIntermedio(){
 
     })
 
-    return data;
+    return data
 }
 
 export function asignacion(instruccion){
@@ -152,5 +164,91 @@ export function leer(instruccion){
     cadena = cadena + "MOV \t" + "DL, \t" + "0AH" + "\n";
     cadena = cadena + "MOV \t" + "AH, \t" + "02H" + "\n";
     cadena = cadena + "INT \t21H" + "\n\n";
+    return cadena;
+}
+
+
+export function clausulaSi(instruccion){
+    var nEtiquetas = 0;
+    var nEtiquetasJMP = 0;
+    var auxSaltos = 0;
+    let bloque = -1;
+    var cadena = "";
+    var instruccionSi = instruccion.valor.split(" ");
+    var cadenaSi = [];
+    var cadenaSino = [];
+
+    cadena = cadena + "CPM \t"+instruccionSi[2].toUpperCase() +", "+ instruccionSi[4].toUpperCase() + "\n";
+
+    if (instruccionSi[3] === ">"){
+        nEtiquetas++;
+        cadena = cadena + "JG" + "\tEtiq"+nEtiquetas + "\n";
+    }else if (instruccionSi[3] === "<"){
+        nEtiquetas++;
+        cadena = cadena + "JL" + "\tEtiq"+nEtiquetas + "\n";
+    }else if (instruccionSi[3] === ">="){
+        nEtiquetas++;
+        cadena = cadena + "JGE" + "\tEtiq"+nEtiquetas + "\n";
+    }else if (instruccionSi[3] === "<="){
+        nEtiquetas++;
+        cadena = cadena + "JLE" + "\tEtiq"+nEtiquetas + "\n";
+    }else if (instruccionSi[3] === "<>"){
+        nEtiquetas++;
+        cadena = cadena + "JNE" + "\tEtiq"+nEtiquetas + "\n";
+    }else if (instruccionSi[3] === "==="){
+        nEtiquetas++;
+        cadena = cadena + "JE" + "\tEtiq"+nEtiquetas + "\n";
+    }
+
+
+
+    let idAux = "";
+    let cadenaAux = "";
+    for (let i = 7; i < instruccionSi.length; i++) {
+        if (instruccionSi[i] === "sino") {
+            auxSaltos = i;
+            break;
+        }else if(instruccionSi[i] === "="){
+            idAux = instruccionSi[i-1];
+            var contenido = getContenidoVariable(instruccionSi, i);
+            cadenaSi.push({"id": idAux, "valor": contenido.contenido.trim()});
+            idAux = "";
+            i = contenido.finalPos;
+        }else if (instruccionSi[i] == "out" || instruccionSi[i] == "leer"){
+            cadenaAux = instruccionSi[i].toUpperCase() + " " + instruccionSi[i+1] + " " + instruccionSi[i+2] + " " + instruccionSi[i+3];
+            cadenaSi.push({"id": "", "valor": cadenaAux});
+            cadenaAux = "";
+            
+        }
+    }
+
+    for (let i = auxSaltos+1; i < instruccionSi.length; i++) {
+        if (instruccionSi[i] === "finsi") {
+            auxSaltos = i;
+            break;
+        }else if(instruccionSi[i] === "="){
+            idAux = instruccionSi[i-1];
+            var contenido = getContenidoVariable(instruccionSi, i);
+            cadenaSino.push({"id": idAux, "valor": contenido.contenido.trim()});
+            idAux = "";
+            i = contenido.finalPos;
+        }else if (instruccionSi[i] == "out" || instruccionSi[i] == "leer"){
+            cadenaAux = instruccionSi[i].toUpperCase() + " " + instruccionSi[i+1] + " " + instruccionSi[i+2] + " " + instruccionSi[i+3];
+            cadenaSino.push({"id": "", "valor": cadenaAux});
+            cadenaAux = "";
+            
+        }
+    }
+
+    cadena = cadena + puntoCode(cadenaSino);
+
+    nEtiquetasJMP++;
+    cadena = cadena + "JPM" + "\tEtiqJMP"+nEtiquetasJMP + "\n";
+
+    cadena = cadena + "Etiq"+nEtiquetas+": " + "\n";
+    cadena = cadena + puntoCode(cadenaSi) + "\n";
+
+    cadena = cadena + "EtiqJMP"+nEtiquetasJMP+": " + "\n";
+
     return cadena;
 }

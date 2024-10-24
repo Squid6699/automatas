@@ -1,0 +1,18 @@
+B {
+  # x ;
+  # y ;
+  # suma ;
+  # div ;
+  x = 12 ;
+  y = 10 ;
+
+  si ( x > y ) :
+    suma = x + y ;
+    out ( suma ) ;
+  sino
+    div = x / y ;
+    out ( div ) ;
+  finsi
+
+
+}
