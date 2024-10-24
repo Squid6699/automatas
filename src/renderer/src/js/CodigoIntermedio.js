@@ -109,7 +109,7 @@ export function division(instruccion){
     cadena = cadena + "MOV \t" + "AX, \t"+operacion[0].trim().toUpperCase() + "\n";
     cadena = cadena + "MOV \t" + "BX, \t"+operacion[1].trim().toUpperCase() + "\n";
     cadena = cadena + "DIV \tBX" + "\n";
-    cadena = cadena + "MOV \t"+instruccion.id.toUpperCase() + ", " + "\tAL"  + "\n";
+    cadena = cadena + "MOV \t"+instruccion.id.toUpperCase() + ", " + "\tAX"  + "\n";
     return cadena;
 }
 
@@ -145,7 +145,7 @@ export function out(instruccion){
     var cadena = "";
     const operacion = instruccion.valor.split(" ");
     cadena = cadena + "MOV \t" + "BX, \t0001H"+ "\n";
-    cadena = cadena + "MOV \t" + "DL, \t" + operacion[2].toUpperCase() + "\n";
+    cadena = cadena + "MOV \t" + "DX, \t" + operacion[2].toUpperCase() + "\n";
     cadena = cadena + "MOV \t" + "AH, \t" + "02H" + "\n";
     cadena = cadena + "INT \t21H" + "\n";
     return cadena;
@@ -178,7 +178,9 @@ export function clausulaSi(instruccion){
     var cadenaSi = [];
     var cadenaSino = [];
 
-    cadena = cadena + "CMP \t"+instruccionSi[2].toUpperCase() +", "+ instruccionSi[4].toUpperCase() + "\n";
+    cadena = cadena + "MOV\tAX,\t"+instruccionSi[4].toUpperCase() + "\n";
+
+    cadena = cadena + "CMP\t"+instruccionSi[2].toUpperCase() +", \tAX \n";
 
     if (instruccionSi[3] === ">"){
         nEtiquetas++;
@@ -243,7 +245,7 @@ export function clausulaSi(instruccion){
     cadena = cadena + puntoCode(cadenaSino);
 
     nEtiquetasJMP++;
-    cadena = cadena + "JPM" + "\tEtiqJMP"+nEtiquetasJMP + "\n";
+    cadena = cadena + "JP" + "\tEtiqJMP"+nEtiquetasJMP + "\n";
 
     cadena = cadena + "Etiq"+nEtiquetas+": " + "\n";
     cadena = cadena + puntoCode(cadenaSi) + "\n";
