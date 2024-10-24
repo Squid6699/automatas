@@ -172,7 +172,6 @@ export function clausulaSi(instruccion){
     var nEtiquetas = 0;
     var nEtiquetasJMP = 0;
     var auxSaltos = 0;
-    let bloque = -1;
     var cadena = "";
     var instruccionSi = instruccion.valor.split(" ");
     var cadenaSi = [];
