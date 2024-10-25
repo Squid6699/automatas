@@ -64,11 +64,19 @@ function puntoCode(items){
         }
 
         if (item.valor.includes("OUT")){
-            data = data + out(item) + "\n";
+            if (!out(item) === ""){
+                data = data + out(item) + "\n";
+            }else{
+                data = data;
+            }
         }
 
         if (item.valor.includes("LEER")){
-            data = data + leer(item) + "\n";
+            if (!leer(item) === ""){
+                data = data + leer(item) + "\n";
+            }else{
+                data = data;
+            }
         }
 
         if (item.valor.includes("si")){
@@ -76,19 +84,35 @@ function puntoCode(items){
         }
 
         if (item.valor.includes("/")){
-            data = data + division(item) + "\n";
+            if (!division(item) === ""){
+                data = data + division(item) + "\n";
+            }else{
+                data = data;
+            }
         }
 
         if (item.valor.includes("*")){
-            data = data + multiplicacion(item) + "\n";
+            if (!multiplicacion(item) === ""){
+                data = data + multiplicacion(item) + "\n";
+            }else{
+                data = data;
+            }
         }
 
         if (item.valor.includes("+")){
-            data = data + suma(item) + "\n";
+            if (!suma(item) === ""){
+                data = data + suma(item) + "\n";
+            }else{
+                data = data;
+            }
         }
 
         if (item.valor.includes("-")){
-            data = data + resta(item) + "\n";
+            if (!resta(item) === ""){
+                data = data + resta(item) + "\n";
+            }else{
+                data = data;
+            }
         }
 
     })
@@ -103,17 +127,22 @@ export function asignacion(instruccion){
 }
 
 export function division(instruccion){
+    if (instruccion.valor.includes("si")){
+        return;
+    }
     var cadena = "";
     const operacion = instruccion.valor.split("/");
-    
     cadena = cadena + "MOV \t" + "AX, \t"+operacion[0].trim().toUpperCase() + "\n";
     cadena = cadena + "MOV \t" + "BX, \t"+operacion[1].trim().toUpperCase() + "\n";
     cadena = cadena + "DIV \tBX" + "\n";
-    cadena = cadena + "MOV \t"+instruccion.id.toUpperCase() + ", " + "\tAX"  + "\n";
+    cadena = cadena + "MOV \t"+instruccion.id.toUpperCase() + ", " + "\tAL"  + "\n";
     return cadena;
 }
 
 export function multiplicacion(instruccion){
+    if (instruccion.valor.includes("si")){
+        return;
+    }
     var cadena = "";
     const operacion = instruccion.valor.split("*");
     cadena = cadena + "MOV \tAX, \t"+operacion[0].trim().toUpperCase() + "\n";
@@ -124,6 +153,9 @@ export function multiplicacion(instruccion){
 }
 
 export function suma(instruccion){
+    if (instruccion.valor.includes("si")){
+        return;
+    }
     var cadena = "";
     const operacion = instruccion.valor.split("+");
     cadena = cadena + "MOV "+ "\t" + "AX, \t "+operacion[0].trim().toUpperCase() + "\n";
@@ -133,6 +165,9 @@ export function suma(instruccion){
 }
 
 export function resta(instruccion){
+    if (instruccion.valor.includes("si")){
+        return;
+    }
     var cadena = "";
     const operacion = instruccion.valor.split("-");
     cadena = cadena + "MOV "+ "\t" + "AX, \t "+operacion[0].trim().toUpperCase() + "\n";
@@ -142,6 +177,9 @@ export function resta(instruccion){
 }
 
 export function out(instruccion){
+    if (instruccion.valor.includes("si")){
+        return;
+    }
     var cadena = "";
     const operacion = instruccion.valor.split(" ");
     cadena = cadena + "MOV \t" + "BX, \t0001H"+ "\n";
@@ -152,6 +190,9 @@ export function out(instruccion){
 }
 
 export function leer(instruccion){
+    if (instruccion.valor.includes("si")){
+        return;
+    }
     var cadena = "";
     const operacion = instruccion.valor.split(" ");
     cadena = cadena + "MOV \t" + "BX, \t0000H"+ "\n";
