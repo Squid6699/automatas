@@ -64,19 +64,22 @@ function puntoCode(items){
         }
 
         if (item.valor.includes("OUT")){
-            if (!out(item) === ""){
-                data = data + out(item) + "\n";
-            }else{
-                data = data;
-            }
+            // if (!out(item) === "undefined"){
+            //     data = data + out(item) + "\n";
+            // }else{
+            //     data = data;
+            // }
+            data = data + out(item) + "\n";
+
         }
 
         if (item.valor.includes("LEER")){
-            if (!leer(item) === ""){
-                data = data + leer(item) + "\n";
-            }else{
-                data = data;
-            }
+            // if (!leer(item) === "undefined"){
+            //     data = data + leer(item) + "\n";
+            // }else{
+            //     data = data;
+            // }
+            data = data + leer(item) + "\n"
         }
 
         if (item.valor.includes("si")){
@@ -84,35 +87,39 @@ function puntoCode(items){
         }
 
         if (item.valor.includes("/")){
-            if (!division(item) === ""){
-                data = data + division(item) + "\n";
-            }else{
-                data = data;
-            }
+            // if (!division(item) === "undefined"){
+            //     data = data + division(item) + "\n";
+            // }else{
+            //     data = data;
+            // }
+            data = data + division(item) + "\n";
         }
 
         if (item.valor.includes("*")){
-            if (!multiplicacion(item) === ""){
-                data = data + multiplicacion(item) + "\n";
-            }else{
-                data = data;
-            }
+            // if (!multiplicacion(item) === "undefined"){
+            //     data = data + multiplicacion(item) + "\n";
+            // }else{
+            //     data = data;
+            // }
+            data = data + multiplicacion(item) + "\n";
         }
 
         if (item.valor.includes("+")){
-            if (!suma(item) === ""){
-                data = data + suma(item) + "\n";
-            }else{
-                data = data;
-            }
+            // if (!suma(item) === ""){
+            //     data = data + suma(item) + "\n";
+            // }else{
+            //     data = data;
+            // }
+            data = data + suma(item) + "\n";
         }
 
         if (item.valor.includes("-")){
-            if (!resta(item) === ""){
-                data = data + resta(item) + "\n";
-            }else{
-                data = data;
-            }
+            // if (!resta(item) === ""){
+            //     data = data + resta(item) + "\n";
+            // }else{
+            //     data = data;
+            // }
+            data = data + resta(item) + "\n";
         }
 
     })
