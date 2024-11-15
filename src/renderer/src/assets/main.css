@@ -35,8 +35,8 @@ header #fade-button{
   grid-template-rows: auto auto auto;
   grid-template-areas: 
   "programa scanner parserSemantico"
-  "codigoIntermedio . ."
-  "consola consola ."
+  "codigoIntermedio codigoBinario codigoBinario"
+  "consola consola consola"
   ;
 }
 
@@ -56,6 +56,14 @@ header #fade-button{
   overflow: auto !important;
 }
 
+#codigoBinario textarea{
+  font-size: 30px !important;
+  line-height: 1 !important;
+  width: 900px;
+  height: 350px !important;
+  overflow: auto !important;
+}
+
 #parserSemantico textarea{
   font-size: 30px !important;
   font-weight: bold !important;
@@ -68,7 +76,7 @@ header #fade-button{
   line-height: 1 !important;
   font-family: "Inconsolata", monospace !important;
   font-style: normal !important;
-  width: 1040px;
+  width: 1440px;
   height: 75px !important;
   overflow-y: auto !important;
 }
@@ -100,6 +108,10 @@ header #fade-button{
   grid-area: codigoIntermedio;
 }
 
+#codigoBinario{
+  grid-area: codigoBinario;
+}
+
 @media (height < 767px){
   #programa textarea, #scanner textarea, #codigoIntermedio textarea{
     height: 450px !important;
@@ -108,7 +120,12 @@ header #fade-button{
 
 @media (width < 1482px){
   #programa textarea, #scanner textarea, #codigoIntermedio textarea{
+    font-size: 25px !important;
     width: 375px !important;
+  }
+
+  #codigoBinario textarea{
+    width: 800px !important;
   }
 
   .containerApp{
@@ -116,7 +133,7 @@ header #fade-button{
   }
 
   #consola textarea{
-    width: 785px;
+    width: 1210px;
   }
 }
 
@@ -166,6 +183,12 @@ header #botonBorrar{
 
 header #codigoIntermedio{
   color: #808080 !important;
+  font-weight: bold !important;
+  border-color: #808080 !important;
+}
+
+header #codigoBinario{
+  color: #05f505 !important;
   font-weight: bold !important;
   border-color: #808080 !important;
 }

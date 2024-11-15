@@ -11,6 +11,7 @@ import { obtenerSemantico } from "./js/Semantico"
 import { borrarErrores, obtenerErrores } from "./js/functions"
 import Intermedio from "./components/Intermedio"
 import { obtenerCodigoIntermedio } from "./js/CodigoIntermedio"
+import Binario from "./components/Binario"
 
 function App() {
   const [txt, setTxt] = useState("");
@@ -19,6 +20,7 @@ function App() {
   const [semantico, setSemantico] = useState("");
   const [consola, setConsola] = useState("");
   const [codigoIntermedio, setCodigoIntermedio] = useState("");
+  const [codigoBinario, setCodigoBinario] = useState("");
 
   const regex = /"([^"]+)"|([^\s"]+)|(")/g;
   const palabras = [];
@@ -65,6 +67,10 @@ function App() {
     setCodigoIntermedio(obtenerCodigoIntermedio());
   }
 
+  const clickBinario = () => {
+    console.log("TRADUICCION A BINARIO")
+  }
+
   const handleOnChangePalabras = (e) => {
     setTxt(e.target.value);
   }
@@ -83,7 +89,7 @@ function App() {
   return (
     <>
       <header>
-        <Botones clickScan = {clickScan} clickParser = {clickParser} clickSemantico = {clickSemantico} clickIntermedio={clickIntermedio} clickBorrar = {clickBorrar} txt = {txt} setTxt = {setTxt} />
+        <Botones clickScan = {clickScan} clickParser = {clickParser} clickSemantico = {clickSemantico} clickIntermedio={clickIntermedio} clickBorrar = {clickBorrar} txt = {txt} setTxt = {setTxt} clickBinario={clickBinario} />
       </header>
       
       <section className="container">
@@ -104,6 +110,10 @@ function App() {
 
           <div id="codigoIntermedio">
             <Intermedio codigoIntermedio={codigoIntermedio}/>
+          </div>
+
+          <div id="codigoBinario">
+            <Binario codigoBinario={codigoBinario}/>
           </div>
 
           <div id="consola">

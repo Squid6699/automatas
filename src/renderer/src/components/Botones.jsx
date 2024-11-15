@@ -8,8 +8,9 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
+import Timer10SelectIcon from '@mui/icons-material/Timer10Select';
 
-function Botones({clickScan, clickParser, clickSemantico, clickIntermedio, clickBorrar, txt, setTxt}){
+function Botones({clickScan, clickParser, clickSemantico, clickIntermedio, clickBorrar, txt, setTxt, clickBinario}){
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -102,6 +103,10 @@ function Botones({clickScan, clickParser, clickSemantico, clickIntermedio, click
 
             <Button id='codigoIntermedio' variant="outlined" startIcon={<SettingsIcon />}  onClick={() => clickIntermedio()}>
                 CODIGO INTERMEDIO
+            </Button>
+
+            <Button id='codigoBinario' variant="outlined" startIcon={<Timer10SelectIcon />}  onClick={() => clickBinario()}>
+                CODIGO BINARIO
             </Button>
 
             <Button id='botonBorrar' variant="outlined" startIcon={<DeleteIcon />} onClick={() => clickBorrar()}>
