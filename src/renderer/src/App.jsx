@@ -12,6 +12,7 @@ import { borrarErrores, obtenerErrores } from "./js/functions"
 import Intermedio from "./components/Intermedio"
 import { obtenerCodigoIntermedio } from "./js/CodigoIntermedio"
 import Binario from "./components/Binario"
+import { obtenerCodigoBinario } from "./js/CodigoBinario"
 
 function App() {
   const [txt, setTxt] = useState("");
@@ -68,7 +69,7 @@ function App() {
   }
 
   const clickBinario = () => {
-    console.log("TRADUICCION A BINARIO")
+    setCodigoBinario(obtenerCodigoBinario())
   }
 
   const handleOnChangePalabras = (e) => {

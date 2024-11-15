@@ -1,17 +1,14 @@
 B {
-  # x ;
-  # y ;
+  # x = 5 ;
+  # y = 10 ;
   # suma ;
-  # div ;
-  x = 12 ;
-  y = 10 ;
+  # resta ;
 
-  si ( x > y ) :
+
+  si ( y > x ) :
     suma = x + y ;
-    out ( suma ) ;
   sino
-    div = x / y ;
-    out ( div ) ;
+     resta = x - y ;
   finsi
 
 

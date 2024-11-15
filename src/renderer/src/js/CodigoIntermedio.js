@@ -1,5 +1,5 @@
 import { getContenidoVariable } from "./functions";
-import { instrucciones, variables } from "./Variables";
+import { addCodigoIntermedioData, instrucciones, variables } from "./Variables";
 
 export function obtenerCodigoIntermedio(){
     var data = "\t.DATA \n\n";
@@ -47,6 +47,8 @@ export function obtenerCodigoIntermedio(){
         }
         
     })
+
+    addCodigoIntermedioData(data);
 
     data = data + "\n\n\t.CODE \n\n";
 
@@ -227,7 +229,9 @@ export function clausulaSi(instruccion){
 
     cadena = cadena + "MOV\tAX,\t"+instruccionSi[4].toUpperCase() + "\n";
 
-    cadena = cadena + "CMP\t"+instruccionSi[2].toUpperCase() +", \tAX \n";
+    cadena = cadena + "CMP\tAX,\t"+instruccionSi[2].toUpperCase() + "\n";
+
+    // cadena = cadena + "CMP\t"+instruccionSi[2].toUpperCase() +", \tAX \n";
 
     if (instruccionSi[3] === ">"){
         nEtiquetas++;

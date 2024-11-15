@@ -1,6 +1,6 @@
 import { getTokenParser } from "./tablaParser";
 
-var errores = [];
+export var errores = [];
 
 export function obtenerErrores(){
     var erroresCadena = "";
