@@ -1,23 +1,58 @@
 
 export function getTablaRegistros(registro){
 
-    if (registro in tablaRegistros) {
-        return true
+    if (registro.endsWith(",")) {
+        registro = registro.slice(0, -1); // Elimina el último carácter
     }
 
-    return false;
+    if (registro in tablaRegistros) {
+        return tablaRegistros[registro];
+    }
+
+    return "";
 }
 
 var tablaRegistros = {
-    "AX": 1,
-    "BX": 2,
-    "CX": 3,
-    "AL": 4,
-    "AH": 5,
-    "21H": 6,
-    "ADD": 7,
-    "SUB": 8,
-    "MOV": 9,
-    "DIV": 10,
-    "LEA": 11
+    "AX": "AX",
+    "BX": "BX",
+    "CX": "CX",
+    "AL": "AL",
+    "AH": "AH",
+    "21H": "21H",
+    "ADD": "ADD",
+    "SUB": "SUB",
+    "MOV": "MOV",
+    "DIV": "DIV",
+    "LEA": "LEA"
 };
+
+export function getDireccion(etiq){
+    if (etiq.endsWith(",")) {
+        etiq = etiq.slice(0, -1);
+    }
+
+    if (etiq in tablaDirecciones) {
+        return tablaDirecciones[etiq];
+    }
+
+    return "";
+}
+
+export function addDireccion(direccion, etiqueta){
+    tablaDirecciones[etiqueta] = direccion;
+}
+
+var tablaDirecciones = {};
+
+export function widthRegistro(regsitro){
+    if (regsitro in tablaWidth) {
+        return tablaWidth[regsitro];
+    }
+}
+
+export var tablaWidth = {
+    "AX": "1",
+    "EAX": "1",
+    "AL": "0",
+    "CX": "1"
+}

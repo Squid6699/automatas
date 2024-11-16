@@ -1,5 +1,5 @@
 import { getContenidoVariable } from "./functions";
-import { addCodigoIntermedioData, instrucciones, variables } from "./Variables";
+import { addCodigoIntermedioCode, addCodigoIntermedioData, instrucciones, variables } from "./Variables";
 
 export function obtenerCodigoIntermedio(){
     var data = "\t.DATA \n\n";
@@ -125,6 +125,8 @@ function puntoCode(items){
         }
 
     })
+
+    addCodigoIntermedioCode(data);
 
     return data
 }

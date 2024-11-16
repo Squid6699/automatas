@@ -1,6 +1,7 @@
 export var variables = [];
 export var instrucciones = [];
 export var codigoIntermedioData = "";
+export var codigoIntermedioCode = "";
 
 export function variableExistente(variable){
     const has = variables.some((item) => item.id === variable);
@@ -50,4 +51,12 @@ export function addCodigoIntermedioData(data){
 
 export function obtenerCodigoIntermedioData(){
     return codigoIntermedioData;
+}
+
+export function addCodigoIntermedioCode(data){
+    codigoIntermedioCode = data;
+}
+
+export function obtenerCodigoIntermedioCode(){
+    return codigoIntermedioCode;
 }
