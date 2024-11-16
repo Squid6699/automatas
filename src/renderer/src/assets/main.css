@@ -125,6 +125,7 @@ header #fade-button{
   }
 
   #codigoBinario textarea{
+    font-size: 25px !important;
     width: 800px !important;
   }
 
