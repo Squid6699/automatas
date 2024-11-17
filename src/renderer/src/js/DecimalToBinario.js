@@ -1,4 +1,4 @@
-export function decimalToBinaryOrHex(input, type = "binary", bytes = 1) {
+export function decimalToBinaryOrHex(input, type = "binary", bytes) {
   if (type === "hexToBinary") {
     if (typeof input !== "string" || !/^[\dA-Fa-f]+$/.test(input)) {
       throw new Error("El valor hexadecimal debe ser una cadena válida.");
@@ -26,6 +26,12 @@ export function decimalToBinaryOrHex(input, type = "binary", bytes = 1) {
     throw new Error("El tipo debe ser 'binary', 'hexadecimal' o 'hexToBinary'.");
   }
 
+  // Calcula automáticamente los bytes si no se proporcionan
+  if (!bytes) {
+    const bitsNeeded = Math.ceil(Math.log2(input + 1)); // Bits necesarios para el número
+    bytes = Math.ceil(bitsNeeded / 8) || 1; // Calcula los bytes necesarios, mínimo 1 byte
+  }
+
   const bits = bytes * 8; // Cada byte tiene 8 bits
   const maxValue = 2 ** bits - 1;
 
@@ -40,7 +46,7 @@ export function decimalToBinaryOrHex(input, type = "binary", bytes = 1) {
 
   if (type === "hexadecimal") {
     const hex = input.toString(16).toUpperCase(); // Convierte a hexadecimal
-    const hexLength = Math.max(4, Math.ceil(bits / 4)); // Mínimo 4 caracteres
+    const hexLength = Math.ceil(bits / 4); // Calcula la longitud necesaria para el hexadecimal
     return hex.padStart(hexLength, "0"); // Ajusta al tamaño calculado
   }
 }

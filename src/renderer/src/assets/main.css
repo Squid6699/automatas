@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
+:root{
+  --bg-color: rgb(61, 61, 61);
+}
+
 body {
-  background-image: url('./wavy-lines.svg');
-  background-size: cover;
+  /* background-image: url('./wavy-lines.svg'); */
+  /* background-size: cover; */
+  background-color: var(--bg-color);
 }
 
 header{
@@ -83,17 +88,17 @@ header #fade-button{
 
 #programa{
   grid-area: programa;
-  background-color: white;
+  background-color: var(--bg-color);
 }
 
 #scanner{
   grid-area: scanner;
-  background-color: white;
+  background-color: var(--bg-color);
 }
 
 #consola{
   grid-area: consola;
-  background-color: white;
+  background-color: var(--bg-color);
 }
 
 #parserSemantico{
@@ -106,10 +111,12 @@ header #fade-button{
 
 #codigoIntermedio{
   grid-area: codigoIntermedio;
+  background-color: var(--bg-color);
 }
 
 #codigoBinario{
   grid-area: codigoBinario;
+  background-color: var(--bg-color);
 }
 
 @media (height < 767px){
