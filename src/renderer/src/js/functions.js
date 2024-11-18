@@ -190,7 +190,7 @@ export function obtenerLeer(palabras, pos){
 }
 
 function condicionValido(palabras, pos){
-    const EXPRESION_REGULAR = /\s*[a-zA-Z][\w]*\s*(===|>|<|<=|>=|<>)\s*[a-zA-Z][\w]*\s*\)/;
+    const EXPRESION_REGULAR = /\s*([a-zA-Z][\w]*|\d+)\s*(===|>|<|<=|>=|<>)\s*([a-zA-Z][\w]*|\d+)\s*\)/;
 
     var nuevaConcatenacion = "";
     var newPos = 0;

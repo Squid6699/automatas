@@ -1,3 +1,4 @@
+import { obtenerCodigoIntermedioCode } from "./Variables";
 
 export function getTablaRegistros(registro){
 
@@ -93,3 +94,67 @@ export function getWidthInmediato(numero){
         return null;
     }
 }
+
+export function getNumSaltos(etiquetaDestino, posAct) {
+    const direcciones = obtenerCodigoIntermedioCode().split("\n");
+    let saltos = 0;
+
+    for (const linea of direcciones.slice(Number(posAct))) {
+        const lineaTrimmed = linea.trim();
+        
+        if (lineaTrimmed === "") {
+            // Ignorar líneas vacías o compuestas solo por espacios
+            continue;
+        }
+
+        if (lineaTrimmed.split(" ").length <= 1) {
+            // Ignorar etiquetas
+            continue;
+        }
+
+        if (lineaTrimmed.includes(`${etiquetaDestino}:`)) {
+            console.log(`Etiqueta encontrada: "${lineaTrimmed}", Saltos necesarios: ${saltos}`);
+            return saltos;
+        }
+        saltos++;
+    }
+
+    return saltos;
+}
+
+export function jCondiciones(condicion){
+    if (condicion in tablaJCondicion) {
+        return tablaJCondicion[condicion];
+    }
+}
+
+export var tablaJCondicion = {
+    "JO": "0000",
+    "JNO": "0001",
+    "JB": "0010",
+    "NAE": "0010",
+    "JAE": "0011",
+    "JNB": "0011",
+    "JE": "0100",
+    "JZ": "0100",
+    "JNE": "0101",
+    "JNZ": "0101",
+    "JBE": "0110",
+    "JNA": "0110",
+    "JA": "0111",
+    "JNBE": "0111",
+    "JS": "1000",
+    "JNS": "1001",
+    "JP": "1010",
+    "JPE": "1010",
+    "JNP": "1011",
+    "JPO": "1011",
+    "JL": "1100",
+    "JNGE": "1100",
+    "JGE": "1101",
+    "JNL": "1101",
+    "JLE": "1110",
+    "JNG": "1110",
+    "JG": "1111",
+    "JNLE": "1111"
+};

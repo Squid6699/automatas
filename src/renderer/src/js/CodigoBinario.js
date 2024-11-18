@@ -1,5 +1,5 @@
 import { decimalToBinaryOrHex } from './DecimalToBinario'
-import { addDireccion, getDireccion, getReg, getTablaRegistros, getWidthInmediato, widthRegistro } from './tablaRegistros';
+import { addDireccion, getDireccion, getNumSaltos, getReg, getTablaRegistros, getWidthInmediato, widthRegistro } from './tablaRegistros';
 import { obtenerCodigoIntermedioCode, obtenerCodigoIntermedioData } from './Variables'
 
 export function obtenerCodigoBinario() {
@@ -49,20 +49,24 @@ export function obtenerCodigoBinario() {
     
     data = data + "\n\n\t.CODE \n\n";
 
-    puntoCode.map((item) => {
+    puntoCode.map((item, index) => {
         const instruccionCode = item.split('\t');
         // console.log(instruccionCode);
 
         const direccionCompletaCode = `${segmentoCode.toString(16).toUpperCase().padStart(4, '0')}:${direccionActualCode.toString(16).toUpperCase().padStart(4, '0')}`;
 
         //===================================MOV===========================================
-        //MOV INMEDIATO A REGISTRO
-        if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) !== "" && parseInt(getTablaRegistros(instruccionCode[2].trim()))){
-            console.log("MOV REGISTRO INMEDIATO")
+        //MOV INMEDIATO A REGISTRO MOV AX, 2
+        if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) !== "" && !isNaN(instruccionCode[2].trim())){
+            const trad = "1100011" + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
+            const reg = getReg(getTablaRegistros(instruccionCode[1].trim()));
+            const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
+            data = data + direccionCompletaCode + "  " + trad + " " + "11000" + reg + " " + immediateData + "\n";
+            direccionActualCode += 2 + (immediateData.split(" ").length);
         }
 
-        //MOV INMEDIATO A MEMORIA
-        if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) === "" && !isNaN(instruccionCode[2])){
+        // //MOV INMEDIATO A MEMORIA
+        if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) === "" && !isNaN(instruccionCode[2].trim())){
             const trad = "1100011" + getWidthInmediato(instruccionCode[2]);
             const mod = "00";
             const rm = "110";
@@ -73,7 +77,7 @@ export function obtenerCodigoBinario() {
         }
 
         //MOV MEMORIA A REGISTRO AX, X
-        if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) !== "" && getTablaRegistros(instruccionCode[2].trim()) === ""){
+        if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) !== "" && getTablaRegistros(instruccionCode[2].trim()) === "" && isNaN(instruccionCode[2].trim())){
             if (getTablaRegistros(instruccionCode[1].trim()) === "AX" || getTablaRegistros(instruccionCode[1].trim()) === "EAX"){
                 const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[2].trim()), "hexToBinary", 2);
                 const trad = "10100001";
@@ -150,17 +154,17 @@ export function obtenerCodigoBinario() {
             }
         }
 
-        //INMEDIATO A MEMORIA X, 5
+        // //INMEDIATO A MEMORIA X, 5
         if (instruccionCode[0].trim() === "ADD" && getTablaRegistros(instruccionCode[1].trim()) === "" && !isNaN(instruccionCode[2])){
-            console.log("INMEDIATO A MEMORIA");
+            console.log("ADD INMEDIATO A MEMORIA");
         }
 
         //REGISTRO A MEMORIA X, AX
         if (instruccionCode[0].trim() === "ADD" && getTablaRegistros(instruccionCode[1].trim()) === "" && getTablaRegistros(instruccionCode[2].trim()) !== ""){
-            console.log("REGISTRO A MEMORIA");
+            console.log("ADD REGISTRO A MEMORIA");
         }
 
-        //MEMORIA A REGISTRO AX,X
+        // //MEMORIA A REGISTRO AX,X
         if (instruccionCode[0].trim() === "ADD" && getTablaRegistros(instruccionCode[1].trim()) !== "" && getTablaRegistros(instruccionCode[2].trim()) === ""){
             const trad = "0000001" + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
             const mod = "00";
@@ -168,22 +172,120 @@ export function obtenerCodigoBinario() {
             const rm = "110";
             const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[2].trim()), "hexToBinary", 2);
             data = data + direccionCompletaCode + "  " + trad + " " + mod  + reg + rm + " " + dir +"\n";
+            direccionActualCode += 4;
         }
 
         //===================================SUB===========================================
-        
+
+        //INMEDIATO A REGISTRO AX, 5
+        if (instruccionCode[0].trim() === "SUB" && getTablaRegistros(instruccionCode[1].trim()) !== "" && !isNaN(instruccionCode[2])){
+            if (getTablaRegistros(instruccionCode[1].trim()) === "AX" || getTablaRegistros(instruccionCode[1].trim()) === "EAX" || getTablaRegistros(instruccionCode[1].trim()) === "AL"){
+                const trad = "0010110" + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
+                const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
+                data = data + direccionCompletaCode + "  " + trad + " " + immediateData + "\n";
+                direccionActualCode += 1 + (immediateData.split(" ").length);
+            }
+
+            if (getTablaRegistros(instruccionCode[1].trim()) !== "AX" && getTablaRegistros(instruccionCode[1].trim()) !== "EAX" && getTablaRegistros(instruccionCode[1].trim()) !== "AL"){
+                const trad = "100000" + getWidthInmediato(instruccionCode[2].trim()) + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
+                const reg = getReg(getTablaRegistros(instruccionCode[1].trim()));
+                const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
+                data = data + direccionCompletaCode + "  " + trad + " " + "11101" + reg + " " + immediateData + "\n";
+                direccionActualCode += 2 + (immediateData.split(" ").length);
+            }
+        }
+
+        //INMEDIATO A MEMORIA X, 5
+        if (instruccionCode[0].trim() === "SUB" && getTablaRegistros(instruccionCode[1].trim()) === "" && !isNaN(instruccionCode[2])){
+            console.log("SUB INMEDIATO A MEMORIA");
+        }
+
+        //REGISTRO A MEMORIA X, AX
+        if (instruccionCode[0].trim() === "SUB" && getTablaRegistros(instruccionCode[1].trim()) === "" && getTablaRegistros(instruccionCode[2].trim()) !== ""){
+            console.log("SUB REGISTRO A MEMORIA");
+        }
+
+        //MEMORIA A REGISTRO AX,X
+        if (instruccionCode[0].trim() === "SUB" && getTablaRegistros(instruccionCode[1].trim()) !== "" && getTablaRegistros(instruccionCode[2].trim()) === ""){
+            const trad = "0010101" + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
+            const mod = "00";
+            const reg = getReg(getTablaRegistros(instruccionCode[1].trim()));
+            const rm = "110";
+            const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[2].trim()), "hexToBinary", 2);
+            data = data + direccionCompletaCode + "  " + trad + " " + mod  + reg + rm + " " + dir +"\n";
+            direccionActualCode += 4;
+        }
+
         //===================================CMP===========================================
 
-        //===================================JP===========================================
+        // REGISTRO CON INMEDIATO CMP AX, 5
+        if (instruccionCode[0].trim() === "CMP" && getTablaRegistros(instruccionCode[1].trim()) !== "" && !isNaN(instruccionCode[2])){
+            if (getTablaRegistros(instruccionCode[1].trim()) === "AX" || getTablaRegistros(instruccionCode[1].trim()) === "EAX" || getTablaRegistros(instruccionCode[1].trim()) === "AL"){
+                const trad = "0011110" + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
+                const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
+                data = data + direccionCompletaCode + "  " + trad + " " + immediateData + "\n";
+                direccionActualCode += 1 + (immediateData.split(" ").length);
+            }
 
-        //===================================JMP===========================================
+            if (getTablaRegistros(instruccionCode[1].trim()) !== "AX" && getTablaRegistros(instruccionCode[1].trim()) !== "EAX" && getTablaRegistros(instruccionCode[1].trim()) !== "AL"){
+                const trad = "100000" + getWidthInmediato(instruccionCode[2].trim()) + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
+                const reg = getReg(getTablaRegistros(instruccionCode[1].trim()));
+                const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
+                data = data + direccionCompletaCode + "  " + trad + " " + "11111" + reg + " " + immediateData + "\n";
+                direccionActualCode += 2 + (immediateData.split(" ").length);
+            }
+        }
+
+        //INMEDIATO CON MEMORIA CPM 50, X
+        if (instruccionCode[0].trim() === "CMP" && !isNaN(instruccionCode[1].trim()) && getTablaRegistros(instruccionCode[2].trim()) === ""){
+            console.log("CMP INMEDIATO CON MEMORIA")
+        }
+
+        //REGISTRO CON MEMORIA CPM AX, X
+        if (instruccionCode[0].trim() === "CMP" && getTablaRegistros(instruccionCode[1].trim()) !== "" && getTablaRegistros(instruccionCode[2].trim()) === "" && isNaN(instruccionCode[2].trim())){
+            const trad = "0011101" + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
+            const mod = "00";
+            const reg = getReg(getTablaRegistros(instruccionCode[1].trim()));
+            const rm = "110";
+            console.log(instruccionCode[2].trim())
+            const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[2].trim()), "hexToBinary", 2);
+            data = data + direccionCompletaCode + "  " + trad + " " + mod  + reg + rm + " " + dir +"\n";
+            direccionActualCode += 4;
+        }
+
+        //MEMORIA CON REGISTRO CPM X, AX
+        if (instruccionCode[0].trim() === "CMP" && getTablaRegistros(instruccionCode[1].trim()) === "" && getTablaRegistros(instruccionCode[2].trim()) !== ""){
+            const trad = "0011100" + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
+            const mod = "00";
+            const reg = getReg(getTablaRegistros(instruccionCode[1].trim()));
+            const rm = "110";
+            const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[1].trim()), "hexToBinary", 2);
+            data = data + direccionCompletaCode + "  " + trad + " " + mod  + reg + rm + " " + dir +"\n";
+            direccionActualCode += 4;
+        }
+
+        //===================================JCondicion===========================================
+        // JCondicion Etiqueta
+        if (instruccionCode[0].trim() === "JP" && getTablaRegistros(instruccionCode[1].trim()) === ""){
+            
+        }
+        
+        //===================================JP===================================================
+        if (instruccionCode[0].trim() === "JP" && getTablaRegistros(instruccionCode[1].trim()) === ""){
+            const trad = "11101011";
+            const nSaltos = decimalToBinaryOrHex(getNumSaltos(instruccionCode[1].trim(), index), "binary");
+            data = data + direccionCompletaCode + "  " + trad + " " + nSaltos +"\n";
+            direccionActualCode += 1 + (nSaltos.split(" ").length);
+        }
+        //===================================MUL===========================================
+
+        //===================================DIV===========================================
+
+        //===================================LEER===========================================
+
+        //===================================IMPRIMIR===========================================
 
     });
-
-
-
-
-
 
 
 
