@@ -60,8 +60,8 @@ export function obtenerCodigoIntermedio(){
 function puntoCode(items){
     var data = "";
     items.map((item) => {
-
-        if (!isNaN(parseFloat(item.valor))){
+        console.log(item)
+        if (item.valor.split(" ").length === 1){
             data = data + asignacion(item) + "\n";
         }
 
@@ -169,6 +169,7 @@ export function suma(instruccion){
     }
     var cadena = "";
     const operacion = instruccion.valor.split("+");
+
     cadena = cadena + "MOV "+ "\t" + "AX, \t "+operacion[0].trim().toUpperCase() + "\n";
     cadena = cadena + "ADD "+ "\t" + "AX, \t "+operacion[1].trim().toUpperCase() + "\n";
     cadena = cadena + "MOV "+ "\t" +instruccion.id.toUpperCase() + ", \t" + "AX" + "\n";
