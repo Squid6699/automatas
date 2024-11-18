@@ -21,12 +21,11 @@ var tablaRegistros = {
     "AH": "AH",
     "DL": "DL",
     "DX": "DX",
-    "21H": "21H",
     "ADD": "ADD",
     "SUB": "SUB",
     "MOV": "MOV",
     "DIV": "DIV",
-    "LEA": "LEA"
+    "EAX": "EAX"
 };
 
 export function getDireccion(etiq){
