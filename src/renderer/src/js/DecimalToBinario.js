@@ -1,5 +1,11 @@
 export function decimalToBinaryOrHex(input, type = "binary", bytes) {
+  // console.log(input)
   if (type === "hexToBinary") {
+
+    if (input.endsWith("H")) {
+      input = input.slice(0, -1);
+    }
+
     if (typeof input !== "string" || !/^[\dA-Fa-f]+$/.test(input)) {
       throw new Error("El valor hexadecimal debe ser una cadena válida.");
     }

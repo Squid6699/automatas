@@ -60,7 +60,6 @@ export function obtenerCodigoIntermedio(){
 function puntoCode(items){
     var data = "";
     items.map((item) => {
-        console.log(item)
         if (item.valor.split(" ").length === 1){
             data = data + asignacion(item) + "\n";
         }

@@ -55,18 +55,29 @@ export function obtenerCodigoBinario() {
 
         const direccionCompletaCode = `${segmentoCode.toString(16).toUpperCase().padStart(4, '0')}:${direccionActualCode.toString(16).toUpperCase().padStart(4, '0')}`;
 
+        if (instruccionCode.length < 3){
+            return;
+        }
         //===================================MOV===========================================
         //MOV INMEDIATO A REGISTRO MOV AX, 2
-        if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) !== "" && !isNaN(instruccionCode[2].trim())){
+        if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) !== "" && !isNaN(parseInt(instruccionCode[2].trim())) || instruccionCode[2].trim().endsWith("H")){
+            console.log("MOV INMEDIATO A REGISTRO");
+            console.log(instruccionCode[0].trim(), instruccionCode[1].trim(), instruccionCode[2].trim())
+            var immediateData;
             const trad = "1100011" + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
             const reg = getReg(getTablaRegistros(instruccionCode[1].trim()));
-            const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
+            immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
+            if (instruccionCode[2].trim().endsWith("H")){
+                immediateData = decimalToBinaryOrHex(instruccionCode[2].trim(), "hexToBinary", 2);
+            }
             data = data + direccionCompletaCode + "  " + trad + " " + "11000" + reg + " " + immediateData + "\n";
             direccionActualCode += 2 + (immediateData.split(" ").length);
+            return;
         }
 
         // //MOV INMEDIATO A MEMORIA
         if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) === "" && !isNaN(instruccionCode[2].trim())){
+            console.log("MOV INMEDIATO A MEMORIA")
             const trad = "1100011" + getWidthInmediato(instruccionCode[2]);
             const mod = "00";
             const rm = "110";
@@ -74,25 +85,31 @@ export function obtenerCodigoBinario() {
             const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
             data = data + direccionCompletaCode + "  " + trad + " " + mod + "000" + rm + " " + immediateData + " " + dir + "\n";
             direccionActualCode += 4 + (immediateData.split(" ").length);
+            return;
         }
 
         //MOV MEMORIA A REGISTRO AX, X
         if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) !== "" && getTablaRegistros(instruccionCode[2].trim()) === "" && isNaN(instruccionCode[2].trim())){
             if (getTablaRegistros(instruccionCode[1].trim()) === "AX" || getTablaRegistros(instruccionCode[1].trim()) === "EAX"){
+                console.log("MOV MEMORIA A REGISTRO");
                 const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[2].trim()), "hexToBinary", 2);
                 const trad = "10100001";
                 data = data + direccionCompletaCode + "  " + trad + " " + dir + "\n";
                 direccionActualCode += 3;
+                return;
             }
 
             if (getTablaRegistros(instruccionCode[1].trim()) === "AL"){
+                console.log("MOV MEMORIA A REGISTRO");
                 const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[2].trim()), "hexToBinary", 2)
                 const trad = "10100000";
                 data = data + direccionCompletaCode + "  " + trad + " " + dir + "\n";
                 direccionActualCode += 3;
+                return;
             }
 
-            if (getTablaRegistros(instruccionCode[1].trim()) !== "AX" && getTablaRegistros(instruccionCode[1].trim()) !== "EAX" && getTablaRegistros(instruccionCode[1].trim()) !== "AL"){
+            if (getTablaRegistros(instruccionCode[1].trim()) !== "AX" && getTablaRegistros(instruccionCode[1].trim()) !== "EAX" && getTablaRegistros(instruccionCode[1].trim()) !== "AL" && isNaN(parseInt(instruccionCode[2].trim()))){
+                console.log("MOV MEMORIA A REGISTRO");
                 const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[2].trim()), "hexToBinary", 2)
                 const trad = "1000101" + widthRegistro(getTablaRegistros(instruccionCode[1].trim()));
                 const mod = "00";
@@ -100,6 +117,7 @@ export function obtenerCodigoBinario() {
                 const rm = "000";
                 data = data + direccionCompletaCode + "  " + trad + " " + mod + reg + rm + " " + dir + "\n";
                 direccionActualCode += 4;
+                return;
             }
 
         }
@@ -107,20 +125,25 @@ export function obtenerCodigoBinario() {
         //MOV REGISTRO A MEMORIA X, AX
         if (instruccionCode[0].trim() === "MOV" && getTablaRegistros(instruccionCode[1].trim()) === "" && getTablaRegistros(instruccionCode[2].trim()) !== ""){
             if (getTablaRegistros(instruccionCode[2].trim()) === "AX" || getTablaRegistros(instruccionCode[2].trim()) === "EAX"){
+                console.log("MOV REGISTRO A MEMORIA");
                 const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[1].trim()), "hexToBinary", 2)
                 const trad = "10100011";
                 data = data + direccionCompletaCode + "  " + trad + " " + dir + "\n";
                 direccionActualCode += 3;
+                return;
             }
 
             if (getTablaRegistros(instruccionCode[2].trim()) === "AL"){
+                console.log("MOV REGISTRO A MEMORIA");
                 const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[1].trim()), "hexToBinary", 2)
                 const trad = "10100010";
                 data = data + direccionCompletaCode + "  " + trad + " " + dir + "\n";
                 direccionActualCode += 3;
+                return;
             }
 
             if (getTablaRegistros(instruccionCode[2].trim()) !== "AX" && getTablaRegistros(instruccionCode[2].trim()) !== "EAX" && getTablaRegistros(instruccionCode[2].trim()) !== "AL"){
+                console.log("MOV REGISTRO A MEMORIA");
                 const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[1].trim()), "hexToBinary", 2);
                 const trad = "1000100" + widthRegistro(getTablaRegistros(instruccionCode[2].trim()));
                 const mod = "00";
@@ -128,6 +151,7 @@ export function obtenerCodigoBinario() {
                 const rm = "000";
                 data = data + direccionCompletaCode + "  " + trad + " " + mod + reg + rm + " " + dir + "\n";
                 direccionActualCode += 4;
+                return;
             }
         }
 
@@ -142,6 +166,7 @@ export function obtenerCodigoBinario() {
                 const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
                 data = data + direccionCompletaCode + "  " + trad + " " + immediateData + "\n";
                 direccionActualCode += 1 + (immediateData.split(" ").length);
+                return;
             }
 
             if (getTablaRegistros(instruccionCode[1].trim()) !== "AX" && getTablaRegistros(instruccionCode[1].trim()) !== "EAX" && getTablaRegistros(instruccionCode[1].trim()) !== "AL"){
@@ -150,17 +175,20 @@ export function obtenerCodigoBinario() {
                 const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
                 data = data + direccionCompletaCode + "  " + trad + " " + "1100" + reg + " " + immediateData + "\n";
                 direccionActualCode += 2 + (immediateData.split(" ").length);
+                return;
             }
         }
 
         // //INMEDIATO A MEMORIA X, 5
         if (instruccionCode[0].trim() === "ADD" && getTablaRegistros(instruccionCode[1].trim()) === "" && !isNaN(instruccionCode[2])){
             console.log("ADD INMEDIATO A MEMORIA");
+            return;
         }
 
         //REGISTRO A MEMORIA X, AX
         if (instruccionCode[0].trim() === "ADD" && getTablaRegistros(instruccionCode[1].trim()) === "" && getTablaRegistros(instruccionCode[2].trim()) !== ""){
             console.log("ADD REGISTRO A MEMORIA");
+            return;
         }
 
         // //MEMORIA A REGISTRO AX,X
@@ -172,6 +200,7 @@ export function obtenerCodigoBinario() {
             const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[2].trim()), "hexToBinary", 2);
             data = data + direccionCompletaCode + "  " + trad + " " + mod  + reg + rm + " " + dir +"\n";
             direccionActualCode += 4;
+            return;
         }
 
         //===================================SUB===========================================
@@ -183,6 +212,7 @@ export function obtenerCodigoBinario() {
                 const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
                 data = data + direccionCompletaCode + "  " + trad + " " + immediateData + "\n";
                 direccionActualCode += 1 + (immediateData.split(" ").length);
+                return;
             }
 
             if (getTablaRegistros(instruccionCode[1].trim()) !== "AX" && getTablaRegistros(instruccionCode[1].trim()) !== "EAX" && getTablaRegistros(instruccionCode[1].trim()) !== "AL"){
@@ -191,17 +221,20 @@ export function obtenerCodigoBinario() {
                 const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
                 data = data + direccionCompletaCode + "  " + trad + " " + "11101" + reg + " " + immediateData + "\n";
                 direccionActualCode += 2 + (immediateData.split(" ").length);
+                return;
             }
         }
 
         //INMEDIATO A MEMORIA X, 5
         if (instruccionCode[0].trim() === "SUB" && getTablaRegistros(instruccionCode[1].trim()) === "" && !isNaN(instruccionCode[2])){
             console.log("SUB INMEDIATO A MEMORIA");
+            return;
         }
 
         //REGISTRO A MEMORIA X, AX
         if (instruccionCode[0].trim() === "SUB" && getTablaRegistros(instruccionCode[1].trim()) === "" && getTablaRegistros(instruccionCode[2].trim()) !== ""){
             console.log("SUB REGISTRO A MEMORIA");
+            return;
         }
 
         //MEMORIA A REGISTRO AX,X
@@ -213,6 +246,7 @@ export function obtenerCodigoBinario() {
             const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[2].trim()), "hexToBinary", 2);
             data = data + direccionCompletaCode + "  " + trad + " " + mod  + reg + rm + " " + dir +"\n";
             direccionActualCode += 4;
+            return;
         }
 
         //===================================CMP===========================================
@@ -224,6 +258,7 @@ export function obtenerCodigoBinario() {
                 const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
                 data = data + direccionCompletaCode + "  " + trad + " " + immediateData + "\n";
                 direccionActualCode += 1 + (immediateData.split(" ").length);
+                return;
             }
 
             if (getTablaRegistros(instruccionCode[1].trim()) !== "AX" && getTablaRegistros(instruccionCode[1].trim()) !== "EAX" && getTablaRegistros(instruccionCode[1].trim()) !== "AL"){
@@ -232,12 +267,14 @@ export function obtenerCodigoBinario() {
                 const immediateData = decimalToBinaryOrHex(parseInt(instruccionCode[2].trim()), "binary");
                 data = data + direccionCompletaCode + "  " + trad + " " + "11111" + reg + " " + immediateData + "\n";
                 direccionActualCode += 2 + (immediateData.split(" ").length);
+                return;
             }
         }
 
         //INMEDIATO CON MEMORIA CPM 50, X
         if (instruccionCode[0].trim() === "CMP" && !isNaN(instruccionCode[1].trim()) && getTablaRegistros(instruccionCode[2].trim()) === ""){
-            console.log("CMP INMEDIATO CON MEMORIA")
+            console.log("CMP INMEDIATO CON MEMORIA");
+            return;
         }
 
         //REGISTRO CON MEMORIA CPM AX, X
@@ -250,6 +287,7 @@ export function obtenerCodigoBinario() {
             const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[2].trim()), "hexToBinary", 2);
             data = data + direccionCompletaCode + "  " + trad + " " + mod  + reg + rm + " " + dir +"\n";
             direccionActualCode += 4;
+            return;
         }
 
         //MEMORIA CON REGISTRO CPM X, AX
@@ -261,6 +299,7 @@ export function obtenerCodigoBinario() {
             const dir = decimalToBinaryOrHex(getDireccion(instruccionCode[1].trim()), "hexToBinary", 2);
             data = data + direccionCompletaCode + "  " + trad + " " + mod  + reg + rm + " " + dir +"\n";
             direccionActualCode += 4;
+            return;
         }
 
         //===================================JCondicion===========================================
@@ -275,6 +314,7 @@ export function obtenerCodigoBinario() {
             const nSaltos = decimalToBinaryOrHex(getNumSaltos(instruccionCode[1].trim(), index), "binary");
             data = data + direccionCompletaCode + "  " + trad + " " + nSaltos +"\n";
             direccionActualCode += 1 + (nSaltos.split(" ").length);
+            return;
         }
         //===================================MUL===========================================
 

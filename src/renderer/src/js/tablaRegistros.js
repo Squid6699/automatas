@@ -19,6 +19,8 @@ var tablaRegistros = {
     "CX": "CX",
     "AL": "AL",
     "AH": "AH",
+    "DL": "DL",
+    "DX": "DX",
     "21H": "21H",
     "ADD": "ADD",
     "SUB": "SUB",
@@ -55,7 +57,11 @@ export var tablaWidth = {
     "AX": "1",
     "EAX": "1",
     "AL": "0",
-    "CX": "1"
+    "AH": "0",
+    "CX": "1",
+    "BX": "1",
+    "DX": "1",
+    "DL": "0"
 }
 
 export function getReg(registro){
