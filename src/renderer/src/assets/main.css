@@ -1,13 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
 :root{
-  --bg-color: rgb(61, 61, 61);
+  --bg-color: rgb(255, 255, 255);
 }
 
 body {
-  /* background-image: url('./wavy-lines.svg'); */
-  /* background-size: cover; */
-  background-color: var(--bg-color);
+  background-image: url('./wavy-lines.svg');
+  background-size: cover;
 }
 
 header{
