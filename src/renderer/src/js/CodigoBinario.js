@@ -329,9 +329,58 @@ export function obtenerCodigoBinario() {
         }
 
         //===================================JCondicion===========================================
-        // JCondicion Etiqueta
-        if (instruccionCode.length === 2 && instruccionCode[0].trim() === "JP" && getTablaRegistros(instruccionCode[1].trim()) === ""){
-            
+        // JG
+        if (instruccionCode.length === 2 && instruccionCode[0].trim() === "JG" && getTablaRegistros(instruccionCode[1].trim()) === ""){
+            const trad = "01111111";
+            const nSaltos = decimalToBinaryOrHex(getNumSaltos(instruccionCode[1].trim(), index)-2, "binary");
+            data = data + direccionCompletaCode + "  " + trad + " " + nSaltos +"\n";
+            direccionActualCode += 1 + (nSaltos.split(" ").length);
+            return;
+        }
+
+        // JL
+        if (instruccionCode.length === 2 && instruccionCode[0].trim() === "JL" && getTablaRegistros(instruccionCode[1].trim()) === ""){
+            const trad = "01111100";
+            const nSaltos = decimalToBinaryOrHex(getNumSaltos(instruccionCode[1].trim(), index)-2, "binary");
+            data = data + direccionCompletaCode + "  " + trad + " " + nSaltos +"\n";
+            direccionActualCode += 1 + (nSaltos.split(" ").length);
+            return;
+        }
+
+        // JGE
+        if (instruccionCode.length === 2 && instruccionCode[0].trim() === "JGE" && getTablaRegistros(instruccionCode[1].trim()) === ""){
+            const trad = "01111101";
+            const nSaltos = decimalToBinaryOrHex(getNumSaltos(instruccionCode[1].trim(), index)-2, "binary");
+            data = data + direccionCompletaCode + "  " + trad + " " + nSaltos +"\n";
+            direccionActualCode += 1 + (nSaltos.split(" ").length);
+            return;
+        }
+
+        // JLE
+        if (instruccionCode.length === 2 && instruccionCode[0].trim() === "JLE" && getTablaRegistros(instruccionCode[1].trim()) === ""){
+            const trad = "01111110";
+            const nSaltos = decimalToBinaryOrHex(getNumSaltos(instruccionCode[1].trim(), index)-2, "binary");
+            data = data + direccionCompletaCode + "  " + trad + " " + nSaltos +"\n";
+            direccionActualCode += 1 + (nSaltos.split(" ").length);
+            return;
+        }
+
+        // JNE
+        if (instruccionCode.length === 2 && instruccionCode[0].trim() === "JNE" && getTablaRegistros(instruccionCode[1].trim()) === ""){
+            const trad = "01110101";
+            const nSaltos = decimalToBinaryOrHex(getNumSaltos(instruccionCode[1].trim(), index)-2, "binary");
+            data = data + direccionCompletaCode + "  " + trad + " " + nSaltos +"\n";
+            direccionActualCode += 1 + (nSaltos.split(" ").length);
+            return;
+        }
+
+        // JE
+        if (instruccionCode.length === 2 && instruccionCode[0].trim() === "JE" && getTablaRegistros(instruccionCode[1].trim()) === ""){
+            const trad = "01110100";
+            const nSaltos = decimalToBinaryOrHex(getNumSaltos(instruccionCode[1].trim(), index)-2, "binary");
+            data = data + direccionCompletaCode + "  " + trad + " " + nSaltos +"\n";
+            direccionActualCode += 1 + (nSaltos.split(" ").length);
+            return;
         }
         
         //===================================JP===================================================
@@ -359,6 +408,14 @@ export function obtenerCodigoBinario() {
             const reg = getReg(getTablaRegistros(instruccionCode[1].trim()));
             data = data + direccionCompletaCode + "  " + trad + " " + "11110"  + reg +"\n";
             direccionActualCode += 2;
+            return;
+        }
+
+        // CONDICION ETIQUETA
+        if (instruccionCode.length === 1 && instruccionCode[0].trim().endsWith(":")){
+            console.log("ETIQUETA "+instruccionCode[0].trim());
+            data = data + direccionCompletaCode + "  " + instruccionCode[0].trim() + "\n";
+            // direccionActualCode += 1;
             return;
         }
     });

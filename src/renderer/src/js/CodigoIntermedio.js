@@ -125,6 +125,7 @@ function puntoCode(items){
 
     })
 
+    data = data.replace(/undefined/g, '').trim();
     addCodigoIntermedioCode(data);
 
     return data
